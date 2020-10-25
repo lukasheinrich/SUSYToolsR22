@@ -391,7 +391,7 @@ namespace ST {
 
   private:
 
-    StatusCode SUSYToolsInit(){return StatusCode::SUCCESS;}
+    StatusCode SUSYToolsInit();
 
     //map ConfigFile names to Property names
     std::map<std::string, std::string> m_conf_to_prop;
