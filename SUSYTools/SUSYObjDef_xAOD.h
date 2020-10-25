@@ -225,13 +225,13 @@ namespace ST {
 
     float BtagSFsys_trkJet(const xAOD::JetContainer* trkjets, const CP::SystematicSet& systConfig) override final ;
 
-    double JVT_SF(const xAOD::JetContainer* jets) override final  {return 0.0;}
+    double JVT_SF(const xAOD::JetContainer* jets) override final ;
 
-    double JVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final  {return 0.0;}
+    double JVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final ;
 
-    double FJVT_SF(const xAOD::JetContainer* jets) override final  {return 0.0;}
+    double FJVT_SF(const xAOD::JetContainer* jets) override final ;
 
-    double FJVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final  {return 0.0;}
+    double FJVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final ;
 
     //SF helpers
     //muons
@@ -289,9 +289,9 @@ namespace ST {
     double GetTotalPhotonSFsys(const xAOD::PhotonContainer& photons, const CP::SystematicSet& systConfig, const bool effSF = true, const bool isoSF = true, const bool triggerSF = false) override final;
 
     //jets
-    double GetTotalJetSF(const xAOD::JetContainer* jets, const bool btagSF = true, const bool jvtSF = true, const bool fjvtSF = false) override final  {return 0.0;}
+    double GetTotalJetSF(const xAOD::JetContainer* jets, const bool btagSF = true, const bool jvtSF = true, const bool fjvtSF = false) override final  ;
 
-    double GetTotalJetSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig, const bool btagSF = true, const bool jvtSF = true, const bool fjvtSF = false) override final  {return 0.0;}
+    double GetTotalJetSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig, const bool btagSF = true, const bool jvtSF = true, const bool fjvtSF = false) override final  ;
 
     //Trigger
     bool IsMETTrigPassed(unsigned int runnumber = 0, bool j400_OR = false) const override final;

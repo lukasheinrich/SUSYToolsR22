@@ -892,145 +892,145 @@ namespace ST {
 
   }
 
-  // double SUSYObjDef_xAOD::JVT_SF(const xAOD::JetContainer* jets) {
+  double SUSYObjDef_xAOD::JVT_SF(const xAOD::JetContainer* jets) {
 
-  //   float totalSF = 1.;
-  //   if (!m_applyJVTCut) return totalSF;
+    float totalSF = 1.;
+    if (!m_applyJVTCut) return totalSF;
 
-  //   ConstDataVector<xAOD::JetContainer> jvtjets(SG::VIEW_ELEMENTS);
-  //   for (const xAOD::Jet* jet : *jets) {
-  //     // Only jets that were good for every cut except JVT
-  //     if (acc_signal_less_JVT(*jet) && acc_passOR(*jet)) {
-  //       jvtjets.push_back(jet);
-  //     }
-  //   }
+    ConstDataVector<xAOD::JetContainer> jvtjets(SG::VIEW_ELEMENTS);
+    for (const xAOD::Jet* jet : *jets) {
+      // Only jets that were good for every cut except JVT
+      if (acc_signal_less_JVT(*jet) && acc_passOR(*jet)) {
+        jvtjets.push_back(jet);
+      }
+    }
 
-  //   CP::CorrectionCode ret = m_jetJvtEfficiencyTool->applyAllEfficiencyScaleFactor( jvtjets.asDataVector() , totalSF );
+    CP::CorrectionCode ret = m_jetJvtEfficiencyTool->applyAllEfficiencyScaleFactor( jvtjets.asDataVector() , totalSF );
 
-  //   switch (ret) {
-  //   case CP::CorrectionCode::Error:
-  //     ATH_MSG_ERROR( "Failed to retrieve SF for jet in SUSYTools_xAOD::JVT_SF" );
-  //     // this is probably not right, should report an error here
-  //     break;
-  //   case CP::CorrectionCode::OutOfValidityRange:
-  //     ATH_MSG_VERBOSE( "No valid SF for jet in SUSYTools_xAOD::JVT_SF" );
-  //     // this may or may not be right, may want to report that this
-  //     // jet doesn't have a valid scale factor
-  //     break;
-  //   default:
-  //     ATH_MSG_VERBOSE( "Retrieve SF for jet container in SUSYTools_xAOD::JVT_SF with value " << totalSF );
-  //   }
+    switch (ret) {
+    case CP::CorrectionCode::Error:
+      ATH_MSG_ERROR( "Failed to retrieve SF for jet in SUSYTools_xAOD::JVT_SF" );
+      // this is probably not right, should report an error here
+      break;
+    case CP::CorrectionCode::OutOfValidityRange:
+      ATH_MSG_VERBOSE( "No valid SF for jet in SUSYTools_xAOD::JVT_SF" );
+      // this may or may not be right, may want to report that this
+      // jet doesn't have a valid scale factor
+      break;
+    default:
+      ATH_MSG_VERBOSE( "Retrieve SF for jet container in SUSYTools_xAOD::JVT_SF with value " << totalSF );
+    }
 
-  //   return totalSF;
+    return totalSF;
 
-  // }
-
-
-  // double SUSYObjDef_xAOD::JVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) {
-
-  //   float totalSF = 1.;
-  //   if (!m_applyJVTCut) return totalSF;
-
-  //   //Set the new systematic variation
-  //   CP::SystematicCode ret = m_jetJvtEfficiencyTool->applySystematicVariation(systConfig);
-  //   if ( ret != CP::SystematicCode::Ok) {
-  //     ATH_MSG_ERROR("Cannot configure JVTEfficiencyTool for systematic var. " << systConfig.name() );
-  //   }
-
-  //   // Delegate
-  //   totalSF = SUSYObjDef_xAOD::JVT_SF( jets );
-
-  //   if (m_applyJVTCut) {
-  //     ret = m_jetJvtEfficiencyTool->applySystematicVariation(m_currentSyst);
-  //     if ( ret != CP::SystematicCode::Ok) {
-  //       ATH_MSG_ERROR("Cannot configure JVTEfficiencyTool for systematic var. " << systConfig.name() );
-  //     }
-  //   }
-
-  //   return totalSF;
-
-  // }
-
-  // double SUSYObjDef_xAOD::FJVT_SF(const xAOD::JetContainer* jets) {
-
-  //   float totalSF = 1.;
-
-  //   ConstDataVector<xAOD::JetContainer> fjvtjets(SG::VIEW_ELEMENTS);
-  //   for (const xAOD::Jet* jet : *jets) {
-  //     // Only jets that were good for every cut except JVT
-  //     if (acc_signal_less_JVT(*jet) && acc_passOR(*jet) && fabs(acc_DetEta(*jet))>m_fJvtEtaMin) {
-  //       fjvtjets.push_back(jet);
-  //     }
-  //   }
-
-  //   CP::CorrectionCode ret = m_jetFwdJvtEfficiencyTool->applyAllEfficiencyScaleFactor( fjvtjets.asDataVector() , totalSF );
-
-  //   switch (ret) {
-  //   case CP::CorrectionCode::Error:
-  //     ATH_MSG_ERROR( "Failed to retrieve SF for jet in SUSYTools_xAOD::FJVT_SF" );
-  //     // this is probably not right, should report an error here
-  //     break;
-  //   case CP::CorrectionCode::OutOfValidityRange:
-  //     ATH_MSG_VERBOSE( "No valid SF for jet in SUSYTools_xAOD::FJVT_SF" );
-  //     // this may or may not be right, may want to report that this
-  //     // jet doesn't have a valid scale factor
-  //     break;
-  //   default:
-  //     ATH_MSG_VERBOSE( "Retrieve SF for jet container in SUSYTools_xAOD::FJVT_SF with value " << totalSF );
-  //   }
-
-  //   return totalSF;
-
-  // }
-
-  // double SUSYObjDef_xAOD::FJVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) {
-
-  //   float totalSF = 1.;
-
-  //   //Set the new systematic variation
-  //   CP::SystematicCode ret = m_jetFwdJvtEfficiencyTool->applySystematicVariation(systConfig);
-  //   if ( ret != CP::SystematicCode::Ok) {
-  //     ATH_MSG_ERROR("Cannot configure FJVTEfficiencyTool for systematic var. " << systConfig.name() );
-  //   }
-
-  //   // Delegate
-  //   totalSF = SUSYObjDef_xAOD::FJVT_SF( jets );
-
-  //   if (m_applyJVTCut) {
-  //     ret = m_jetFwdJvtEfficiencyTool->applySystematicVariation(m_currentSyst);
-  //     if ( ret != CP::SystematicCode::Ok) {
-  //       ATH_MSG_ERROR("Cannot configure FJVTEfficiencyTool for systematic var. " << systConfig.name() );
-  //     }
-  //   }
-
-  //   return totalSF;
-
-  // }
-
-  // double SUSYObjDef_xAOD::GetTotalJetSF(const xAOD::JetContainer* jets, const bool btagSF, const bool jvtSF, const bool fjvtSF) {
-
-  //   double totalSF = 1.;
-  //   if (btagSF) totalSF *= BtagSF(jets);
-
-  //   if (jvtSF && m_applyJVTCut) totalSF *= JVT_SF(jets);
-
-  //   if (fjvtSF) totalSF *= FJVT_SF(jets);
-
-  //   return totalSF;
-  // }
+  }
 
 
-  // double SUSYObjDef_xAOD::GetTotalJetSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig, const bool btagSF, const bool jvtSF, const bool fjvtSF) {
+  double SUSYObjDef_xAOD::JVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) {
 
-  //   double totalSF = 1.;
-  //   if (btagSF) totalSF *= BtagSFsys(jets, systConfig);
+    float totalSF = 1.;
+    if (!m_applyJVTCut) return totalSF;
 
-  //   if (jvtSF && m_applyJVTCut) totalSF *= JVT_SFsys(jets, systConfig);
+    //Set the new systematic variation
+    CP::SystematicCode ret = m_jetJvtEfficiencyTool->applySystematicVariation(systConfig);
+    if ( ret != CP::SystematicCode::Ok) {
+      ATH_MSG_ERROR("Cannot configure JVTEfficiencyTool for systematic var. " << systConfig.name() );
+    }
 
-  //   if (fjvtSF) totalSF *= FJVT_SFsys(jets, systConfig);
+    // Delegate
+    totalSF = SUSYObjDef_xAOD::JVT_SF( jets );
 
-  //   return totalSF;
-  // }
+    if (m_applyJVTCut) {
+      ret = m_jetJvtEfficiencyTool->applySystematicVariation(m_currentSyst);
+      if ( ret != CP::SystematicCode::Ok) {
+        ATH_MSG_ERROR("Cannot configure JVTEfficiencyTool for systematic var. " << systConfig.name() );
+      }
+    }
+
+    return totalSF;
+
+  }
+
+  double SUSYObjDef_xAOD::FJVT_SF(const xAOD::JetContainer* jets) {
+
+    float totalSF = 1.;
+
+    ConstDataVector<xAOD::JetContainer> fjvtjets(SG::VIEW_ELEMENTS);
+    for (const xAOD::Jet* jet : *jets) {
+      // Only jets that were good for every cut except JVT
+      if (acc_signal_less_JVT(*jet) && acc_passOR(*jet) && fabs(acc_DetEta(*jet))>m_fJvtEtaMin) {
+        fjvtjets.push_back(jet);
+      }
+    }
+
+    CP::CorrectionCode ret = m_jetFwdJvtEfficiencyTool->applyAllEfficiencyScaleFactor( fjvtjets.asDataVector() , totalSF );
+
+    switch (ret) {
+    case CP::CorrectionCode::Error:
+      ATH_MSG_ERROR( "Failed to retrieve SF for jet in SUSYTools_xAOD::FJVT_SF" );
+      // this is probably not right, should report an error here
+      break;
+    case CP::CorrectionCode::OutOfValidityRange:
+      ATH_MSG_VERBOSE( "No valid SF for jet in SUSYTools_xAOD::FJVT_SF" );
+      // this may or may not be right, may want to report that this
+      // jet doesn't have a valid scale factor
+      break;
+    default:
+      ATH_MSG_VERBOSE( "Retrieve SF for jet container in SUSYTools_xAOD::FJVT_SF with value " << totalSF );
+    }
+
+    return totalSF;
+
+  }
+
+  double SUSYObjDef_xAOD::FJVT_SFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) {
+
+    float totalSF = 1.;
+
+    //Set the new systematic variation
+    CP::SystematicCode ret = m_jetFwdJvtEfficiencyTool->applySystematicVariation(systConfig);
+    if ( ret != CP::SystematicCode::Ok) {
+      ATH_MSG_ERROR("Cannot configure FJVTEfficiencyTool for systematic var. " << systConfig.name() );
+    }
+
+    // Delegate
+    totalSF = SUSYObjDef_xAOD::FJVT_SF( jets );
+
+    if (m_applyJVTCut) {
+      ret = m_jetFwdJvtEfficiencyTool->applySystematicVariation(m_currentSyst);
+      if ( ret != CP::SystematicCode::Ok) {
+        ATH_MSG_ERROR("Cannot configure FJVTEfficiencyTool for systematic var. " << systConfig.name() );
+      }
+    }
+
+    return totalSF;
+
+  }
+
+  double SUSYObjDef_xAOD::GetTotalJetSF(const xAOD::JetContainer* jets, const bool btagSF, const bool jvtSF, const bool fjvtSF) {
+
+    double totalSF = 1.;
+    if (btagSF) totalSF *= BtagSF(jets);
+
+    if (jvtSF && m_applyJVTCut) totalSF *= JVT_SF(jets);
+
+    if (fjvtSF) totalSF *= FJVT_SF(jets);
+
+    return totalSF;
+  }
+
+
+  double SUSYObjDef_xAOD::GetTotalJetSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig, const bool btagSF, const bool jvtSF, const bool fjvtSF) {
+
+    double totalSF = 1.;
+    if (btagSF) totalSF *= BtagSFsys(jets, systConfig);
+
+    if (jvtSF && m_applyJVTCut) totalSF *= JVT_SFsys(jets, systConfig);
+
+    if (fjvtSF) totalSF *= FJVT_SFsys(jets, systConfig);
+
+    return totalSF;
+  }
 
   StatusCode SUSYObjDef_xAOD::BendBTaggingLinks(xAOD::JetContainer* to_container , const std::string& bTagKey) const {
     const xAOD::JetContainer* b_tag_jets = nullptr;
