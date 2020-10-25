@@ -143,8 +143,8 @@ namespace ST {
     void setDataSource(int source);
 
     // Apply the correction on a modifyable object
-    // StatusCode FillJet(xAOD::Jet& input, const bool doCalib = true, bool isFat = false, bool isTCC = false) override final;
-    // StatusCode FillTrackJet(xAOD::Jet& input) override final;
+    StatusCode FillJet(xAOD::Jet& input, const bool doCalib = true, bool isFat = false, bool isTCC = false) override final;
+    StatusCode FillTrackJet(xAOD::Jet& input) override final;
     StatusCode FillTau(xAOD::TauJet& input) override final;
     StatusCode FillMuon(xAOD::Muon& input, const float ptcut, const float etacut) override final;
     StatusCode FillElectron(xAOD::Electron& input, const float etcut, const float etacut) override final;
@@ -152,12 +152,12 @@ namespace ST {
 
     const xAOD::Vertex* GetPrimVtx() const override final;
 
-    StatusCode BendBTaggingLinks(xAOD::JetContainer* to_container , const std::string& bTagKey) const override final {return StatusCode::SUCCESS;}
-    StatusCode SetBtagWeightDecorations(const xAOD::Jet& input, const asg::AnaToolHandle<IBTaggingSelectionTool>& btagSelTool, std::string btagTagger) const override final {return StatusCode::SUCCESS;}
-    StatusCode GetJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "", const xAOD::JetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
-    StatusCode GetTrackJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "", const xAOD::JetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
-    StatusCode GetJetsSyst(const xAOD::JetContainer& calibjets, xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "") override final {return StatusCode::SUCCESS;}
-    StatusCode GetFatJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = false, const std::string& jetkey = "", const bool doLargeRdecorations = false, const xAOD::JetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
+    StatusCode BendBTaggingLinks(xAOD::JetContainer* to_container , const std::string& bTagKey) const override final ;
+    StatusCode SetBtagWeightDecorations(const xAOD::Jet& input, const asg::AnaToolHandle<IBTaggingSelectionTool>& btagSelTool, std::string btagTagger) const override final ;
+    StatusCode GetJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "", const xAOD::JetContainer* containerToBeCopied = 0) override final;
+    StatusCode GetTrackJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "", const xAOD::JetContainer* containerToBeCopied = 0) override final;
+    StatusCode GetJetsSyst(const xAOD::JetContainer& calibjets, xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "") override final;
+    StatusCode GetFatJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = false, const std::string& jetkey = "", const bool doLargeRdecorations = false, const xAOD::JetContainer* containerToBeCopied = 0) override final;
     StatusCode GetTaus(xAOD::TauJetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& taukey = "TauJets", const xAOD::TauJetContainer* containerToBeCopied = 0) override final;
     StatusCode GetMuons(xAOD::MuonContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& muonkey = "Muons", const xAOD::MuonContainer* containerToBeCopied = 0) override final;
     StatusCode GetElectrons(xAOD::ElectronContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& elekey = "Electrons", const xAOD::ElectronContainer* containerToBeCopied = 0) override final;
@@ -184,12 +184,12 @@ namespace ST {
 
     bool IsPFlowCrackVetoCleaning(const xAOD::ElectronContainer* elec = 0, const xAOD::PhotonContainer* gamma = 0) const override final ;
 
-    bool IsSignalJet(const xAOD::Jet& input, const float ptcut, const float etacut) const override final {return true;}
+    bool IsSignalJet(const xAOD::Jet& input, const float ptcut, const float etacut) const override final ;
 
-    bool IsBadJet(const xAOD::Jet& input) const override final {return true;}
+    bool IsBadJet(const xAOD::Jet& input) const override final ;
 
-    bool IsBJetLoose(const xAOD::Jet& input) const override final {return true;}
-    bool JetPassJVT(xAOD::Jet& input, bool update_jvt) override final {return true;}
+    bool IsBJetLoose(const xAOD::Jet& input) const override final;
+    bool JetPassJVT(xAOD::Jet& input, bool update_jvt) override final ;
 
 
     bool IsSignalMuon(const xAOD::Muon& input, const float ptcut, const float d0sigcut, const float z0cut, const float etacut = DUMMYDEF) const override final;
@@ -207,23 +207,23 @@ namespace ST {
 
     bool IsSignalPhoton(const xAOD::Photon& input, const float ptcut, const float etacut = DUMMYDEF) const override final;
 
-    bool IsBJet(const xAOD::Jet& input) const override final {return true;}
+    bool IsBJet(const xAOD::Jet& input) const override final;
 
-    bool IsTrackBJet(const xAOD::Jet& input) const override final {return false;}
+    bool IsTrackBJet(const xAOD::Jet& input) const override final ;
 
     bool IsTruthBJet(const xAOD::Jet& input) const override final ;
 
-    int IsBJetContinuous(const xAOD::Jet& input) const override final {return 0;}
+    int IsBJetContinuous(const xAOD::Jet& input) const override final ;
 
-    int IsTrackBJetContinuous(const xAOD::Jet& input) const override final {return 0;}
+    int IsTrackBJetContinuous(const xAOD::Jet& input) const override final ;
 
-    float BtagSF(const xAOD::JetContainer* jets) const override final {return 0.0;}
+    float BtagSF(const xAOD::JetContainer* jets) const override final ;
 
-    float BtagSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final  {return 0.0;}
+    float BtagSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig) override final ;
 
-    float BtagSF_trkJet(const xAOD::JetContainer* trkjets) const override final  {return 0.0;}
+    float BtagSF_trkJet(const xAOD::JetContainer* trkjets) const override final ;
 
-    float BtagSFsys_trkJet(const xAOD::JetContainer* trkjets, const CP::SystematicSet& systConfig) override final  {return 0.0;}
+    float BtagSFsys_trkJet(const xAOD::JetContainer* trkjets, const CP::SystematicSet& systConfig) override final ;
 
     double JVT_SF(const xAOD::JetContainer* jets) override final  {return 0.0;}
 
