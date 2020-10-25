@@ -145,7 +145,7 @@ namespace ST {
     // Apply the correction on a modifyable object
     // StatusCode FillJet(xAOD::Jet& input, const bool doCalib = true, bool isFat = false, bool isTCC = false) override final;
     // StatusCode FillTrackJet(xAOD::Jet& input) override final;
-    // StatusCode FillTau(xAOD::TauJet& input) override final;
+    StatusCode FillTau(xAOD::TauJet& input) override final;
     StatusCode FillMuon(xAOD::Muon& input, const float ptcut, const float etacut) override final;
     StatusCode FillElectron(xAOD::Electron& input, const float etcut, const float etacut) override final;
     StatusCode FillPhoton(xAOD::Photon& input, const float ptcut, const float etacut) override final;
@@ -158,7 +158,7 @@ namespace ST {
     StatusCode GetTrackJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "", const xAOD::JetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
     StatusCode GetJetsSyst(const xAOD::JetContainer& calibjets, xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& jetkey = "") override final {return StatusCode::SUCCESS;}
     StatusCode GetFatJets(xAOD::JetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = false, const std::string& jetkey = "", const bool doLargeRdecorations = false, const xAOD::JetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
-    StatusCode GetTaus(xAOD::TauJetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& taukey = "TauJets", const xAOD::TauJetContainer* containerToBeCopied = 0) override final {return StatusCode::SUCCESS;}
+    StatusCode GetTaus(xAOD::TauJetContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& taukey = "TauJets", const xAOD::TauJetContainer* containerToBeCopied = 0) override final;
     StatusCode GetMuons(xAOD::MuonContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& muonkey = "Muons", const xAOD::MuonContainer* containerToBeCopied = 0) override final;
     StatusCode GetElectrons(xAOD::ElectronContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& elekey = "Electrons", const xAOD::ElectronContainer* containerToBeCopied = 0) override final;
     StatusCode GetPhotons(xAOD::PhotonContainer*& copy, xAOD::ShallowAuxContainer*& copyaux, const bool recordSG = true, const std::string& photonkey = "Photons", const xAOD::PhotonContainer* containerToBeCopied = 0) override final;
@@ -201,7 +201,7 @@ namespace ST {
     bool IsHighPtMuon(const xAOD::Muon& input) const override final;
     // See https://indico.cern.ch/event/371499/contribution/1/material/slides/0.pdf and https://indico.cern.ch/event/397325/contribution/19/material/slides/0.pdf and https://twiki.cern.ch/twiki/bin/view/Atlas/MuonSelectionTool
 
-    bool IsSignalTau(const xAOD::TauJet& input, const float ptcut, const float etacut) const override final {return true;}
+    bool IsSignalTau(const xAOD::TauJet& input, const float ptcut, const float etacut) const override final ;
 
     bool IsBadMuon(const xAOD::Muon& input, const float qopcut) const override final;
 
@@ -211,7 +211,7 @@ namespace ST {
 
     bool IsTrackBJet(const xAOD::Jet& input) const override final {return false;}
 
-    bool IsTruthBJet(const xAOD::Jet& input) const override final {return false;}
+    bool IsTruthBJet(const xAOD::Jet& input) const override final ;
 
     int IsBJetContinuous(const xAOD::Jet& input) const override final {return 0;}
 
@@ -269,15 +269,15 @@ namespace ST {
     float GetTotalElectronSFsys(const xAOD::ElectronContainer& electrons, const CP::SystematicSet& systConfig, const bool recoSF = true, const bool idSF = true, const bool triggerSF = true, const bool isoSF = true, const std::string& trigExpr = "singleLepton", const bool ecidsSF = false, const bool cidSF = false) override final;// singleLepton == Ele.TriggerSFStringSingle value
 
     //taus
-    double GetSignalTauSF(const xAOD::TauJet& tau, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  {return 0.0;}
+    double GetSignalTauSF(const xAOD::TauJet& tau, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  ;
 
-    double GetSignalTauSFsys(const xAOD::TauJet& tau, const CP::SystematicSet& systConfig, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  {return 0.0;}
+    double GetSignalTauSFsys(const xAOD::TauJet& tau, const CP::SystematicSet& systConfig, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  ;
 
-    double GetTauTriggerEfficiencySF(const xAOD::TauJet& tau, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  {return 0.0;}
+    double GetTauTriggerEfficiencySF(const xAOD::TauJet& tau, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  ;
 
-    double GetTotalTauSF(const xAOD::TauJetContainer& taus, const bool idSF = true, const bool triggerSF = true,  const std::string& trigExpr = "tau25_medium1_tracktwo") override final  {return 0.0;}
+    double GetTotalTauSF(const xAOD::TauJetContainer& taus, const bool idSF = true, const bool triggerSF = true,  const std::string& trigExpr = "tau25_medium1_tracktwo") override final  ;
 
-    double GetTotalTauSFsys(const xAOD::TauJetContainer& taus, const CP::SystematicSet& systConfig, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  {return 0.0;}
+    double GetTotalTauSFsys(const xAOD::TauJetContainer& taus, const CP::SystematicSet& systConfig, const bool idSF = true, const bool triggerSF = true, const std::string& trigExpr = "tau25_medium1_tracktwo") override final  ;
 
     //photons
     double GetSignalPhotonSF(const xAOD::Photon& ph, const bool effSF = true, const bool isoSF = true, const bool triggerSF = false) const override final;
@@ -357,13 +357,13 @@ namespace ST {
 
 
     //truth helpers
-    bool isPrompt(const xAOD::IParticle* part) const override final {return false;}
+    bool isPrompt(const xAOD::IParticle* part) const override final;
 
-    StatusCode FindSusyHP(int& pdgid1, int& pdgid2) const {return StatusCode::SUCCESS;}
-    StatusCode FindSusyHP(const xAOD::TruthParticleContainer *truthP, int& pdgid1, int& pdgid2, bool isTruth3=false) const override final {return StatusCode::SUCCESS;}
-    StatusCode FindSusyHP(const xAOD::TruthEvent *truthE, int& pdgid1, int& pdgid2) const override final {return StatusCode::SUCCESS;}
-    static bool FindSusyHardProc(const xAOD::TruthParticleContainer *truthP, int& pdgid1, int& pdgid2, bool isTruth3=false) {return true;}
-    static bool FindSusyHardProc(const xAOD::TruthEvent *truthE, int& pdgid1, int& pdgid2)  {return true;}
+    StatusCode FindSusyHP(int& pdgid1, int& pdgid2) const ;
+    StatusCode FindSusyHP(const xAOD::TruthParticleContainer *truthP, int& pdgid1, int& pdgid2, bool isTruth3=false) const override final ;
+    StatusCode FindSusyHP(const xAOD::TruthEvent *truthE, int& pdgid1, int& pdgid2) const override final ;
+    static bool FindSusyHardProc(const xAOD::TruthParticleContainer *truthP, int& pdgid1, int& pdgid2, bool isTruth3=false);
+    static bool FindSusyHardProc(const xAOD::TruthEvent *truthE, int& pdgid1, int& pdgid2) ;
 
     //trigger helpers
     std::string TrigSingleLep() const override final;
