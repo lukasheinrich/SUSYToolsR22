@@ -220,8 +220,8 @@ namespace ST {
     // virtual StatusCode FillJet(xAOD::Jet& input, const bool doCalib = true, const bool isFat = false, const bool isTCC = false) = 0;
     // virtual StatusCode FillTrackJet(xAOD::Jet& input) = 0;
     // virtual StatusCode FillTau(xAOD::TauJet& input) = 0;
-    // virtual StatusCode FillElectron(xAOD::Electron& input, const float etcut, const float etacut) = 0;
-    // virtual StatusCode FillPhoton(xAOD::Photon& input, const float ptcut, const float etacut) = 0;
+    virtual StatusCode FillElectron(xAOD::Electron& input, const float etcut, const float etacut) = 0;
+    virtual StatusCode FillPhoton(xAOD::Photon& input, const float ptcut, const float etacut) = 0;
 
     virtual const xAOD::Vertex* GetPrimVtx() const = 0;
     
