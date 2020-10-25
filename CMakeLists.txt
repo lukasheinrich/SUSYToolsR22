@@ -132,76 +132,82 @@ set( extra_libs )
 if( NOT XAOD_STANDALONE )
    set( extra_libs POOLRootAccessLib )
 endif()
-# atlas_add_executable( SUSYToolsTester
-#    util/SUSYToolsTester.cxx
-#    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-#    LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess xAODEventInfo xAODMuon
-#    xAODEgamma xAODTau xAODTruth xAODJet xAODCaloEvent xAODCore xAODMissingET
-#    FTagAnalysisInterfacesLib xAODBase TauAnalysisToolsLib GoodRunsListsLib
-#    PileupReweightingLib PATInterfaces PathResolver METUtilitiesLib xAODCutFlow
-#    SUSYToolsLib ${extra_libs} )
+atlas_add_executable( SUSYToolsTester
+   util/SUSYToolsTester.cxx
+   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+   LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess xAODEventInfo xAODMuon
+   xAODEgamma xAODTau xAODTruth xAODJet xAODCaloEvent xAODCore xAODMissingET
+   FTagAnalysisInterfacesLib xAODBase TauAnalysisToolsLib GoodRunsListsLib
+   PileupReweightingLib PATInterfaces PathResolver METUtilitiesLib xAODCutFlow
+   SUSYToolsLib ${extra_libs} )
 
-# atlas_add_executable( SUSYTruthTester
-#    util/SUSYTruthTester.cxx
-#    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-#    LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess xAODEventInfo 
-#    xAODTruth xAODCore xAODBase PATInterfaces PathResolver xAODCutFlow
-#    SUSYToolsLib ${extra_libs} )
+atlas_add_executable( SUSYTruthTester
+   util/SUSYTruthTester.cxx
+   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+   LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess xAODEventInfo 
+   xAODTruth xAODCore xAODBase PATInterfaces PathResolver xAODCutFlow
+   SUSYToolsLib ${extra_libs} )
 
-# atlas_add_executable( SUSYTools_check_xsections
-#    util/check_xsections.cxx
-#    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-#    LINK_LIBRARIES ${ROOT_LIBRARIES} SUSYToolsLib )
+atlas_add_executable( SUSYTools_check_xsections
+   util/check_xsections.cxx
+   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+   LINK_LIBRARIES ${ROOT_LIBRARIES} SUSYToolsLib )
 
-# if( XAOD_STANDALONE )
-#    atlas_add_executable( SUSYTools_check_syst
-#       util/check_syst.cxx
-#       INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-#       LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess PATInterfaces
-#       SUSYToolsLib )
-# endif()
+if( XAOD_STANDALONE )
+   atlas_add_executable( SUSYTools_check_syst
+      util/check_syst.cxx
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess PATInterfaces
+      SUSYToolsLib )
+endif()
 
 # Test(s) in the package:
 if( XAOD_STANDALONE )
-   # atlas_add_test( gt_SUSYTools_xs_loader
-   #    SOURCES test/gt_SUSYTools_xs_loader.cxx
-   #    INCLUDE_DIRS ${GTEST_INCLUDE_DIRS} ${ROOT_INCLUDE_DIRS}
-   #    LINK_LIBRARIES ${GTEST_LIBRARIES} ${ROOT_LIBRARIES} SampleHandler
-   #    EXTRA_PATTERNS "\([0-9]+ ms\)|\([0-9]+ ms total\)" )
-   # atlas_add_test( ut_SUSYTools_test_xs_files
-   #    SOURCES test/ut_SUSYTools_test_xs_files.cxx
-   #    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-   #    LINK_LIBRARIES ${ROOT_LIBRARIES} SampleHandler AsgTools)
-   # #  Veto lines:  Timing (can change night to night); cvmfs path (changes every night); local SUSYTools data directory (so local builds pass)
-   # #  build path (for nightlies and CI builds - note that CI has Analysis*/build/Analysis*, while NICOS has build/build/Analysis*...)
-   # atlas_add_test( ut_SUSYTools_config_checker
-   #    SCRIPT test/ut_SUSYTools_config_checker.py
-   #    PROPERTIES TIMEOUT 300
-   #    EXTRA_PATTERNS "^Ran [0-9]+ tests in [0-9.]+s|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt|create data set info.*")
-   # # Additional veto lines: more timing, local conf file this thing is writing
-   # atlas_add_test( ut_SUSYTools_wp_checker
-   #    SCRIPT test/ut_SUSYTools_wp_checker.py
-   #    PROPERTIES TIMEOUT 700
-   #    EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt|mySTdefs_conf\.tmp|^Ran [0-9]+ tests in [0-9.]+s|create data set info.*")
-   # atlas_add_test( ut_SUSYToolsTester_atlfast
-   #    SOURCES test/ut_SUSYToolsTester_atlfast.cxx
-   #    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-   #    LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
-   #    PROPERTIES TIMEOUT 300
-   #    EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt")
-   # # Safety factor for tests
-   # atlas_add_test( ut_SUSYToolsTester_data
-   #    SOURCES test/ut_SUSYToolsTester_data.cxx
-   #    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-   #    LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
-   #    PROPERTIES TIMEOUT 300
-   #    EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt")
-   # atlas_add_test( ut_SUSYToolsTester_mc
-   #    SOURCES test/ut_SUSYToolsTester_mc.cxx
-   #    INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
-   #    LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
-   #    PROPERTIES TIMEOUT 300
-   #    EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt")
+   atlas_add_test( gt_SUSYTools_xs_loader
+      SOURCES test/gt_SUSYTools_xs_loader.cxx
+      INCLUDE_DIRS ${GTEST_INCLUDE_DIRS} ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${GTEST_LIBRARIES} ${ROOT_LIBRARIES} SampleHandler
+      # EXTRA_PATTERNS "\([0-9]+ ms\)|\([0-9]+ ms total\)"
+   )
+   atlas_add_test( ut_SUSYTools_test_xs_files
+      SOURCES test/ut_SUSYTools_test_xs_files.cxx
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} SampleHandler AsgTools)
+   #  Veto lines:  Timing (can change night to night); cvmfs path (changes every night); local SUSYTools data directory (so local builds pass)
+   #  build path (for nightlies and CI builds - note that CI has Analysis*/build/Analysis*, while NICOS has build/build/Analysis*...)
+   atlas_add_test( ut_SUSYTools_config_checker
+      SCRIPT test/ut_SUSYTools_config_checker.py
+      PROPERTIES TIMEOUT 300
+      # EXTRA_PATTERNS "^Ran [0-9]+ tests in [0-9.]+s|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt|create data set info.*"
+   )
+   # Additional veto lines: more timing, local conf file this thing is writing
+   atlas_add_test( ut_SUSYTools_wp_checker
+      SCRIPT test/ut_SUSYTools_wp_checker.py
+      PROPERTIES TIMEOUT 700
+      # EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt|mySTdefs_conf\.tmp|^Ran [0-9]+ tests in [0-9.]+s|create data set info.*"
+   )
+   atlas_add_test( ut_SUSYToolsTester_atlfast
+      SOURCES test/ut_SUSYToolsTester_atlfast.cxx
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
+      PROPERTIES TIMEOUT 300
+      # EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt"
+   )
+   # Safety factor for tests
+   atlas_add_test( ut_SUSYToolsTester_data
+      SOURCES test/ut_SUSYToolsTester_data.cxx
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
+      PROPERTIES TIMEOUT 300
+      # EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt"
+   )
+   atlas_add_test( ut_SUSYToolsTester_mc
+      SOURCES test/ut_SUSYToolsTester_mc.cxx
+      INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
+      LINK_LIBRARIES ${ROOT_LIBRARIES} AsgTools
+      PROPERTIES TIMEOUT 300
+      # EXTRA_PATTERNS "^  Entire loop [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|^  Excluding first event - [0-9.]+ / [0-9.]+ ms|INFO|^  First event [ ]+- [0-9.]+ / [0-9.]+ ms|INFO|cvmfs/atlas-nightlies\.cern\.ch/repo|x86_64-slc6-gcc62-opt/data/SUSYTools|x86_64-centos7-gcc8-opt/data/SUSYTools|build/Analysis.*/x86_64-slc6-gcc62-opt|build/Analysis.*/x86_64-centos7-gcc8-opt"
+   )
 endif()
 
 # Install files from the package:
