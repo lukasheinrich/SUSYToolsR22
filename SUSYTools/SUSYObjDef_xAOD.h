@@ -169,20 +169,20 @@ namespace ST {
                       const xAOD::PhotonContainer* gamma = 0,
                       const xAOD::TauJetContainer* taujet = 0,
                       bool doTST = true, bool doJVTCut = true,
-                      const xAOD::IParticleContainer* invis = 0) override final {return StatusCode::SUCCESS;}
+                      const xAOD::IParticleContainer* invis = 0) override final ;
 
     StatusCode GetTrackMET(xAOD::MissingETContainer& met,
                            const xAOD::JetContainer* jet,
                            const xAOD::ElectronContainer* elec = 0,
                            const xAOD::MuonContainer* muon = 0
-			   ) override final {return StatusCode::SUCCESS;}
+			   ) override final;
 
     StatusCode GetMETSig(xAOD::MissingETContainer& met,
                          double& metSignificance,
                          bool doTST = true, bool doJVTCut = true
-		         ) override final {return StatusCode::SUCCESS;}
+		         ) override final ;
 
-    bool IsPFlowCrackVetoCleaning(const xAOD::ElectronContainer* elec = 0, const xAOD::PhotonContainer* gamma = 0) const override final {return false;}
+    bool IsPFlowCrackVetoCleaning(const xAOD::ElectronContainer* elec = 0, const xAOD::PhotonContainer* gamma = 0) const override final ;
 
     bool IsSignalJet(const xAOD::Jet& input, const float ptcut, const float etacut) const override final {return true;}
 
