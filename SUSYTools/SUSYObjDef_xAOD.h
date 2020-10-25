@@ -250,19 +250,19 @@ namespace ST {
 
     double GetEleTriggerEfficiency(const xAOD::Electron& el, const std::string& trigExpr = "SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0") const override final;
 
-    double GetTriggerGlobalEfficiency(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const std::string& trigExpr = "diLepton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiency(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const std::string& trigExpr = "diLepton") override final ;
 
-    double GetTriggerGlobalEfficiency(const xAOD::PhotonContainer& photons, const std::string& trigExpr = "diPhoton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiency(const xAOD::PhotonContainer& photons, const std::string& trigExpr = "diPhoton") override final;
 
     double GetEleTriggerEfficiencySF(const xAOD::Electron& el, const std::string& trigExpr = "SINGLE_E_2015_e24_lhmedium_L1EM20VH_OR_e60_lhmedium_OR_e120_lhloose_2016_2018_e26_lhtight_nod0_ivarloose_OR_e60_lhmedium_nod0_OR_e140_lhloose_nod0") const override final;
 
-    double GetTriggerGlobalEfficiencySF(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const std::string& trigExpr = "diLepton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiencySF(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const std::string& trigExpr = "diLepton") override final ;
 
-    double GetTriggerGlobalEfficiencySF(const xAOD::PhotonContainer& photons, const std::string& trigExpr = "diPhoton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiencySF(const xAOD::PhotonContainer& photons, const std::string& trigExpr = "diPhoton") override final  ;
 
-    double GetTriggerGlobalEfficiencySFsys(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const CP::SystematicSet& systConfig, const std::string& trigExpr = "diLepton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiencySFsys(const xAOD::ElectronContainer& electrons, const xAOD::MuonContainer& muons, const CP::SystematicSet& systConfig, const std::string& trigExpr = "diLepton") override final  ;
 
-    double GetTriggerGlobalEfficiencySFsys(const xAOD::PhotonContainer& photons, const CP::SystematicSet& systConfig, const std::string& trigExpr = "diPhoton") override final  {return 0.0;}
+    double GetTriggerGlobalEfficiencySFsys(const xAOD::PhotonContainer& photons, const CP::SystematicSet& systConfig, const std::string& trigExpr = "diPhoton") override final  ;
 
     float GetTotalElectronSF(const xAOD::ElectronContainer& electrons, const bool recoSF = true, const bool idSF = true, const bool triggerSF = true, const bool isoSF = true, const std::string& trigExpr = "singleLepton", const bool ecidsSF = false, const bool cidSF = false) override final;
 
@@ -294,31 +294,31 @@ namespace ST {
     double GetTotalJetSFsys(const xAOD::JetContainer* jets, const CP::SystematicSet& systConfig, const bool btagSF = true, const bool jvtSF = true, const bool fjvtSF = false) override final  {return 0.0;}
 
     //Trigger
-    bool IsMETTrigPassed(unsigned int runnumber = 0, bool j400_OR = false) const override final {return false;}
-    bool IsMETTrigPassed(const std::string& triggerName, bool j400_OR = false) const override final  {return false;}
+    bool IsMETTrigPassed(unsigned int runnumber = 0, bool j400_OR = false) const override final;
+    bool IsMETTrigPassed(const std::string& triggerName, bool j400_OR = false) const override final;
 
-    bool IsTrigPassed(const std::string&, unsigned int condition=TrigDefs::Physics) const override final  {return false;}
+    bool IsTrigPassed(const std::string&, unsigned int condition=TrigDefs::Physics) const override final ;
 
-    bool IsTrigMatched(const xAOD::IParticle *part, const std::string& tr_item) override final  {return false;}
-    bool IsTrigMatched(const xAOD::IParticle *part1, const xAOD::IParticle *part2, const std::string& tr_item) override final  {return false;}
-    bool IsTrigMatched(const std::vector<const xAOD::IParticle*>& v, const std::string& tr_item) override final  {return false;}
-    bool IsTrigMatched(const std::initializer_list<const xAOD::IParticle*> &v, const std::string& tr_item) override final  {return false;}
+    bool IsTrigMatched(const xAOD::IParticle *part, const std::string& tr_item) override final  ;
+    bool IsTrigMatched(const xAOD::IParticle *part1, const xAOD::IParticle *part2, const std::string& tr_item) override final  ;
+    bool IsTrigMatched(const std::vector<const xAOD::IParticle*>& v, const std::string& tr_item) override final  ;
+    bool IsTrigMatched(const std::initializer_list<const xAOD::IParticle*> &v, const std::string& tr_item) override final ;
 
-    void TrigMatch(const xAOD::IParticle* p, std::initializer_list<std::string>::iterator, std::initializer_list<std::string>::iterator) override final {;}
-    void TrigMatch(const xAOD::IParticle* p, const std::vector<std::string>& items) override final {;}
-    void TrigMatch(const xAOD::IParticle* p, const std::initializer_list<std::string>& items) override final {;}
-    void TrigMatch(const xAOD::IParticleContainer* v, const std::vector<std::string>& items) override final {;}
-    void TrigMatch(const xAOD::IParticleContainer* v, const std::initializer_list<std::string>& items) override final {;}
-    void TrigMatch(const std::initializer_list<const xAOD::IParticle*>& v, const std::vector<std::string>& items) override final {;}
-    void TrigMatch(const std::initializer_list<const xAOD::IParticle*>& v, const std::initializer_list<std::string>& items) override final {;}
-    void TrigMatch(const xAOD::IParticle* p, const std::string& item) override final {;}
-    void TrigMatch(const xAOD::IParticleContainer* v,  const std::string& item) override final {;}
-    void TrigMatch(const std::initializer_list<const xAOD::IParticle*> &v, const std::string& item) override final {;}
+    void TrigMatch(const xAOD::IParticle* p, std::initializer_list<std::string>::iterator, std::initializer_list<std::string>::iterator) override final ;
+    void TrigMatch(const xAOD::IParticle* p, const std::vector<std::string>& items) override final ;
+    void TrigMatch(const xAOD::IParticle* p, const std::initializer_list<std::string>& items) override final ;
+    void TrigMatch(const xAOD::IParticleContainer* v, const std::vector<std::string>& items) override final ;
+    void TrigMatch(const xAOD::IParticleContainer* v, const std::initializer_list<std::string>& items) override final ;
+    void TrigMatch(const std::initializer_list<const xAOD::IParticle*>& v, const std::vector<std::string>& items) override final ;
+    void TrigMatch(const std::initializer_list<const xAOD::IParticle*>& v, const std::initializer_list<std::string>& items) override final ;
+    void TrigMatch(const xAOD::IParticle* p, const std::string& item) override final ;
+    void TrigMatch(const xAOD::IParticleContainer* v,  const std::string& item) override final ;
+    void TrigMatch(const std::initializer_list<const xAOD::IParticle*> &v, const std::string& item) override final ;
 
     // Trigger helpers
-    float GetTrigPrescale(const std::string&) const override final {return 0.0;}
-    const Trig::ChainGroup* GetTrigChainGroup(const std::string&) const override final {return nullptr;}
-    std::vector<std::string> GetTriggerOR(std::string trigExpr) const {return std::vector<std::string>();}
+    float GetTrigPrescale(const std::string&) const override final ;
+    const Trig::ChainGroup* GetTrigChainGroup(const std::string&) const override final ;
+    std::vector<std::string> GetTriggerOR(std::string trigExpr) const ;
     void GetTriggerTokens(std::string, std::vector<std::string>& , std::vector<std::string>& , std::vector<std::string>& , std::vector<std::string>& ) const;
     Trig::FeatureContainer GetTriggerFeatures(const std::string& chainName = "EF_.*", unsigned int condition = TrigDefs::Physics) const;
 
