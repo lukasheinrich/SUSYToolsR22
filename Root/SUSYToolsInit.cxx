@@ -234,29 +234,29 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise Boson taggers: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/BoostedJetTaggingRecommendationFullRun2#Higgs_taggers
-  if (!m_WTaggerTool.isUserConfigured() && !m_WtagConfig.empty()) {
-    m_WTaggerTool.setTypeAndName("SmoothedWZTagger/WTagger");
-    ATH_CHECK( m_WTaggerTool.setProperty("ConfigFile", m_WtagConfig) );
-    ATH_CHECK( m_WTaggerTool.setProperty("CalibArea", m_WZTaggerCalibArea) );
-    ATH_CHECK( m_WTaggerTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_WTaggerTool.retrieve() );
-  } else if (m_WTaggerTool.isUserConfigured()) ATH_CHECK(m_WTaggerTool.retrieve());
+  // if (!m_WTaggerTool.isUserConfigured() && !m_WtagConfig.empty()) {
+  //   m_WTaggerTool.setTypeAndName("SmoothedWZTagger/WTagger");
+  //   ATH_CHECK( m_WTaggerTool.setProperty("ConfigFile", m_WtagConfig) );
+  //   ATH_CHECK( m_WTaggerTool.setProperty("CalibArea", m_WZTaggerCalibArea) );
+  //   ATH_CHECK( m_WTaggerTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_WTaggerTool.retrieve() );
+  // } else if (m_WTaggerTool.isUserConfigured()) ATH_CHECK(m_WTaggerTool.retrieve());
 
-  if (!m_ZTaggerTool.isUserConfigured() && !m_ZtagConfig.empty()) {
-    m_ZTaggerTool.setTypeAndName("SmoothedWZTagger/ZTagger");
-    ATH_CHECK( m_ZTaggerTool.setProperty("ConfigFile", m_ZtagConfig) );
-    ATH_CHECK( m_ZTaggerTool.setProperty("CalibArea", m_WZTaggerCalibArea) );
-    ATH_CHECK( m_ZTaggerTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_ZTaggerTool.retrieve() );
-  } else if (m_ZTaggerTool.isUserConfigured()) ATH_CHECK(m_ZTaggerTool.retrieve());
+  // if (!m_ZTaggerTool.isUserConfigured() && !m_ZtagConfig.empty()) {
+  //   m_ZTaggerTool.setTypeAndName("SmoothedWZTagger/ZTagger");
+  //   ATH_CHECK( m_ZTaggerTool.setProperty("ConfigFile", m_ZtagConfig) );
+  //   ATH_CHECK( m_ZTaggerTool.setProperty("CalibArea", m_WZTaggerCalibArea) );
+  //   ATH_CHECK( m_ZTaggerTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_ZTaggerTool.retrieve() );
+  // } else if (m_ZTaggerTool.isUserConfigured()) ATH_CHECK(m_ZTaggerTool.retrieve());
 
-  if (!m_TopTaggerTool.isUserConfigured() && !m_ToptagConfig.empty()) {
-    m_TopTaggerTool.setTypeAndName("JSSWTopTaggerDNN/TopTagger");
-    ATH_CHECK( m_TopTaggerTool.setProperty("ConfigFile", m_ToptagConfig) );
-    ATH_CHECK( m_TopTaggerTool.setProperty("CalibArea", m_TopTaggerCalibArea) );
-    ATH_CHECK( m_TopTaggerTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_TopTaggerTool.retrieve() );
-  } else if (m_TopTaggerTool.isUserConfigured()) ATH_CHECK(m_TopTaggerTool.retrieve());
+  // if (!m_TopTaggerTool.isUserConfigured() && !m_ToptagConfig.empty()) {
+  //   m_TopTaggerTool.setTypeAndName("JSSWTopTaggerDNN/TopTagger");
+  //   ATH_CHECK( m_TopTaggerTool.setProperty("ConfigFile", m_ToptagConfig) );
+  //   ATH_CHECK( m_TopTaggerTool.setProperty("CalibArea", m_TopTaggerCalibArea) );
+  //   ATH_CHECK( m_TopTaggerTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_TopTaggerTool.retrieve() );
+  // } else if (m_TopTaggerTool.isUserConfigured()) ATH_CHECK(m_TopTaggerTool.retrieve());
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise JetTruthLabelingTool: https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetUncertaintiesRel21Summer2019LargeR#AnalysisBase_21_2_114_and_newer
@@ -275,27 +275,27 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   // https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetUncertaintiesRel21Summer2018SmallR
   ATH_MSG_INFO("Set up Jet Uncertainty tool...");
 
-  if (!m_jetUncertaintiesTool.isUserConfigured()) {
-    std::string jetdef("AntiKt4" + xAOD::JetInput::typeName(xAOD::JetInput::Type(m_jetInputType)));
+  // if (!m_jetUncertaintiesTool.isUserConfigured()) {
+  //   std::string jetdef("AntiKt4" + xAOD::JetInput::typeName(xAOD::JetInput::Type(m_jetInputType)));
 
-    if(jetdef != "AntiKt4EMTopo" && jetdef !="AntiKt4EMPFlow"){
-      ATH_MSG_WARNING("Jet Uncertaintes recommendations only exist for EMTopo and PFlow jets, falling back to AntiKt4EMTopo");
-      jetdef = "AntiKt4EMTopo";
-    }
-    toolName = "JetUncertaintiesTool_" + jetdef;
+  //   if(jetdef != "AntiKt4EMTopo" && jetdef !="AntiKt4EMPFlow"){
+  //     ATH_MSG_WARNING("Jet Uncertaintes recommendations only exist for EMTopo and PFlow jets, falling back to AntiKt4EMTopo");
+  //     jetdef = "AntiKt4EMTopo";
+  //   }
+  //   toolName = "JetUncertaintiesTool_" + jetdef;
 
-    m_jetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
+  //   m_jetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
 
 
-    ATH_CHECK( m_jetUncertaintiesTool.setProperty("JetDefinition", jetdef) );
-    ATH_CHECK( m_jetUncertaintiesTool.setProperty("MCType", isAtlfast() ? "AFII" : "MC16") );
-    ATH_CHECK( m_jetUncertaintiesTool.setProperty("IsData", false) ); // Never use the PDSmearing for the nominal tool. 
-    ATH_CHECK( m_jetUncertaintiesTool.setProperty("ConfigFile", m_jetUncertaintiesConfig) );
-    if(m_jetUncertaintiesAnalysisFile!="default") ATH_CHECK( m_jetUncertaintiesTool.setProperty("AnalysisFile", m_jetUncertaintiesAnalysisFile) );
-    if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_jetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
-    ATH_CHECK( m_jetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_jetUncertaintiesTool.retrieve() );
-  } else  ATH_CHECK( m_jetUncertaintiesTool.retrieve() );
+  //   ATH_CHECK( m_jetUncertaintiesTool.setProperty("JetDefinition", jetdef) );
+  //   ATH_CHECK( m_jetUncertaintiesTool.setProperty("MCType", isAtlfast() ? "AFII" : "MC16") );
+  //   // ATH_CHECK( m_jetUncertaintiesTool.setProperty("IsData", false) ); // Never use the PDSmearing for the nominal tool. 
+  //   ATH_CHECK( m_jetUncertaintiesTool.setProperty("ConfigFile", m_jetUncertaintiesConfig) );
+  //   if(m_jetUncertaintiesAnalysisFile!="default") ATH_CHECK( m_jetUncertaintiesTool.setProperty("AnalysisFile", m_jetUncertaintiesAnalysisFile) );
+  //   if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_jetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
+  //   ATH_CHECK( m_jetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_jetUncertaintiesTool.retrieve() );
+  // } else  ATH_CHECK( m_jetUncertaintiesTool.retrieve() );
   
   ATH_MSG_INFO("Set up Jet PD Smear Uncertainty tool...");
   
@@ -331,58 +331,58 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   ATH_MSG_INFO("Set up FatJet Uncertainty tool if using...");
   // Initialise jet uncertainty tool for fat jets
   // https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetUncertaintiesRel21Summer2019LargeR
-  if (!m_fatjetUncertaintiesTool.isUserConfigured() && !m_fatJets.empty() && !m_fatJetUncConfig.empty()) {
+  // if (!m_fatjetUncertaintiesTool.isUserConfigured() && !m_fatJets.empty() && !m_fatJetUncConfig.empty()) {
 
-    toolName = "JetUncertaintiesTool_" + m_fatJets;
-    m_fatjetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
+  //   toolName = "JetUncertaintiesTool_" + m_fatJets;
+  //   m_fatjetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
 
-    ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("JetDefinition", fatjetcoll) );
-    ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("MCType", "MC16") );
-    ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("IsData", isData()) );
-    ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("ConfigFile", m_fatJetUncConfig) );
-    if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("JetDefinition", fatjetcoll) );
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("MCType", "MC16") );
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("IsData", isData()) );
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("ConfigFile", m_fatJetUncConfig) );
+  //   if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
 
-    //Restrict variables to be shifted if (required)
-    if( m_fatJetUncVars != "default" ){
-      std::vector<std::string> shift_vars = {};
+  //   //Restrict variables to be shifted if (required)
+  //   if( m_fatJetUncVars != "default" ){
+  //     std::vector<std::string> shift_vars = {};
 
-      std::string temp(m_fatJetUncVars);
-      do {
-        auto pos = temp.find(",");
-        shift_vars.push_back(temp.substr(0, pos));
-        if (pos == std::string::npos)
-          temp = "";
-        else
-          temp = temp.substr(pos + 1);
+  //     std::string temp(m_fatJetUncVars);
+  //     do {
+  //       auto pos = temp.find(",");
+  //       shift_vars.push_back(temp.substr(0, pos));
+  //       if (pos == std::string::npos)
+  //         temp = "";
+  //       else
+  //         temp = temp.substr(pos + 1);
 
-      }
-      while (!temp.empty() );
+  //     }
+  //     while (!temp.empty() );
 
-      ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("VariablesToShift", shift_vars) );
-    }
+  //     ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("VariablesToShift", shift_vars) );
+  //   }
 
-    ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_fatjetUncertaintiesTool.retrieve() );
-  } else if (m_fatjetUncertaintiesTool.isUserConfigured()) ATH_CHECK(m_fatjetUncertaintiesTool.retrieve());
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_fatjetUncertaintiesTool.retrieve() );
+  // } else if (m_fatjetUncertaintiesTool.isUserConfigured()) ATH_CHECK(m_fatjetUncertaintiesTool.retrieve());
  
 
   // Initialise jet uncertainty tool for TCC jets
   // https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetUncertaintiesRel21Summer2019TCC
-  if (!m_TCCjetUncertaintiesTool.isUserConfigured() && !m_TCCJets.empty() && !m_TCCJetUncConfig.empty()) {
-    toolName = "JetUncertaintiesTool_" + m_TCCJets;
-    m_TCCjetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
+  // if (!m_TCCjetUncertaintiesTool.isUserConfigured() && !m_TCCJets.empty() && !m_TCCJetUncConfig.empty()) {
+  //   toolName = "JetUncertaintiesTool_" + m_TCCJets;
+  //   m_TCCjetUncertaintiesTool.setTypeAndName("JetUncertaintiesTool/"+toolName);
 
-    std::string TCCjetcoll(m_TCCJets);
-    if (TCCjetcoll.size()>3) TCCjetcoll = TCCjetcoll.substr(0,TCCjetcoll.size()-4); //remove "Jets" suffix
+  //   std::string TCCjetcoll(m_TCCJets);
+  //   if (TCCjetcoll.size()>3) TCCjetcoll = TCCjetcoll.substr(0,TCCjetcoll.size()-4); //remove "Jets" suffix
 
-    ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("JetDefinition", TCCjetcoll) );
-    ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("MCType", "MC16") );
-    ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("IsData", isData()) );
-    ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("ConfigFile", m_TCCJetUncConfig) );
-    if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
-    ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_TCCjetUncertaintiesTool.retrieve() );
-  } else if (m_TCCjetUncertaintiesTool.isUserConfigured()) ATH_CHECK( m_TCCjetUncertaintiesTool.retrieve() );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("JetDefinition", TCCjetcoll) );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("MCType", "MC16") );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("IsData", isData()) );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("ConfigFile", m_TCCJetUncConfig) );
+  //   if (m_jetUncertaintiesCalibArea != "default") ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("CalibArea", m_jetUncertaintiesCalibArea) );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_TCCjetUncertaintiesTool.retrieve() );
+  // } else if (m_TCCjetUncertaintiesTool.isUserConfigured()) ATH_CHECK( m_TCCjetUncertaintiesTool.retrieve() );
  
 
   // tagger SF and uncertainties
@@ -404,83 +404,83 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise JVT tool
 
-  if (!m_jetJvtUpdateTool.isUserConfigured()) {
-    toolName = "JetVertexTaggerTool";
-    m_jetJvtUpdateTool.setTypeAndName("JetVertexTaggerTool/"+toolName);
-    ATH_CHECK( m_jetJvtUpdateTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_jetJvtUpdateTool.retrieve() );
-  } else  ATH_CHECK( m_jetJvtUpdateTool.retrieve() );
+  // if (!m_jetJvtUpdateTool.isUserConfigured()) {
+  //   toolName = "JetVertexTaggerTool";
+  //   m_jetJvtUpdateTool.setTypeAndName("JetVertexTaggerTool/"+toolName);
+  //   ATH_CHECK( m_jetJvtUpdateTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_jetJvtUpdateTool.retrieve() );
+  // } else  ATH_CHECK( m_jetJvtUpdateTool.retrieve() );
  
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise jet JVT efficiency tool (scale factors)
 
-  m_applyJVTCut = !m_JvtWP.empty();
-  if (!m_jetJvtEfficiencyTool.isUserConfigured() && m_applyJVTCut) {
-    toolName = "JVTEfficiencyTool";
-    m_jetJvtEfficiencyTool.setTypeAndName("CP::JetJvtEfficiency/"+toolName);
+  // m_applyJVTCut = !m_JvtWP.empty();
+  // if (!m_jetJvtEfficiencyTool.isUserConfigured() && m_applyJVTCut) {
+  //   toolName = "JVTEfficiencyTool";
+  //   m_jetJvtEfficiencyTool.setTypeAndName("CP::JetJvtEfficiency/"+toolName);
 
-    // build SFFile path with folder name from config
-    m_JvtConfig_SFFile = "JetJvtEfficiency/" + m_JvtConfig; 
-    if (m_jetInputType == xAOD::JetInput::EMTopo) { m_JvtConfig_SFFile += "JvtSFFile_EMTopoJets.root"; }
-    else if (m_jetInputType == xAOD::JetInput::LCTopo) { m_JvtConfig_SFFile += "JvtSFFile_LC.root"; }
-    else if (m_jetInputType == xAOD::JetInput::EMPFlow) { m_JvtConfig_SFFile += "JvtSFFile_EMPFlowJets.root"; }
-    else {
-      ATH_MSG_ERROR("Cannot configure JVT uncertainties for unsupported jet input type (neither EM nor LC)");
-      return StatusCode::FAILURE;
-    }
+  //   // build SFFile path with folder name from config
+  //   m_JvtConfig_SFFile = "JetJvtEfficiency/" + m_JvtConfig; 
+  //   if (m_jetInputType == xAOD::JetInput::EMTopo) { m_JvtConfig_SFFile += "JvtSFFile_EMTopoJets.root"; }
+  //   else if (m_jetInputType == xAOD::JetInput::LCTopo) { m_JvtConfig_SFFile += "JvtSFFile_LC.root"; }
+  //   else if (m_jetInputType == xAOD::JetInput::EMPFlow) { m_JvtConfig_SFFile += "JvtSFFile_EMPFlowJets.root"; }
+  //   else {
+  //     ATH_MSG_ERROR("Cannot configure JVT uncertainties for unsupported jet input type (neither EM nor LC)");
+  //     return StatusCode::FAILURE;
+  //   }
     
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("WorkingPoint", m_JvtWP) );
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("MaxPtForJvt", m_JvtPtMax) );
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("ScaleFactorDecorationName", "jvtscalefact") ); // set decoration name
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("SFFile", m_JvtConfig_SFFile) );
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("TruthJetContainerName", m_defaultTruthJets ) );
-    ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_jetJvtEfficiencyTool.retrieve() );
-  } else if (m_jetJvtEfficiencyTool.isUserConfigured()) ATH_CHECK( m_jetJvtEfficiencyTool.retrieve() );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("WorkingPoint", m_JvtWP) );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("MaxPtForJvt", m_JvtPtMax) );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("ScaleFactorDecorationName", "jvtscalefact") ); // set decoration name
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("SFFile", m_JvtConfig_SFFile) );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("TruthJetContainerName", m_defaultTruthJets ) );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_jetJvtEfficiencyTool.retrieve() );
+  // } else if (m_jetJvtEfficiencyTool.isUserConfigured()) ATH_CHECK( m_jetJvtEfficiencyTool.retrieve() );
  
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise FwdJVT tool
 
-  if (!m_jetFwdJvtTool.isUserConfigured()) {
-    toolName = m_doFwdJVT ? m_metJetSelection+"_fJVT" : m_metJetSelection+"_NOfJVT";
-    m_jetFwdJvtTool.setTypeAndName("JetForwardJvtTool/FJVTTool_"+toolName);
+  // if (!m_jetFwdJvtTool.isUserConfigured()) {
+  //   toolName = m_doFwdJVT ? m_metJetSelection+"_fJVT" : m_metJetSelection+"_NOfJVT";
+  //   m_jetFwdJvtTool.setTypeAndName("JetForwardJvtTool/FJVTTool_"+toolName);
 
-    ATH_CHECK( m_jetFwdJvtTool.setProperty("OutputDec", "passFJvt") ); //Output decoration
-    ATH_CHECK( m_jetFwdJvtTool.setProperty("UseTightOP", (m_fJvtWP=="Tight")) );
-    ATH_CHECK( m_jetFwdJvtTool.setProperty("ForwardMaxPt", m_fJvtPtMax) ); // Max Pt to define fwdJets for JVT
-    ATH_CHECK( m_jetFwdJvtTool.setProperty("EtaThresh", m_fJvtEtaMin) );   // Eta dividing central from forward jets
-    ATH_CHECK( m_jetFwdJvtTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_jetFwdJvtTool.retrieve() );
-  } else ATH_CHECK( m_jetFwdJvtTool.retrieve() );
+  //   ATH_CHECK( m_jetFwdJvtTool.setProperty("OutputDec", "passFJvt") ); //Output decoration
+  //   ATH_CHECK( m_jetFwdJvtTool.setProperty("UseTightOP", (m_fJvtWP=="Tight")) );
+  //   ATH_CHECK( m_jetFwdJvtTool.setProperty("ForwardMaxPt", m_fJvtPtMax) ); // Max Pt to define fwdJets for JVT
+  //   ATH_CHECK( m_jetFwdJvtTool.setProperty("EtaThresh", m_fJvtEtaMin) );   // Eta dividing central from forward jets
+  //   ATH_CHECK( m_jetFwdJvtTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_jetFwdJvtTool.retrieve() );
+  // } else ATH_CHECK( m_jetFwdJvtTool.retrieve() );
  
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   // Initialise jet FwdJVT efficiency tool for scale factors
 
-  if (!m_jetFwdJvtEfficiencyTool.isUserConfigured()) {
-    toolName = m_doFwdJVT ? m_metJetSelection+"_fJVT" : m_metJetSelection+"_NOfJVT";
-    m_jetFwdJvtEfficiencyTool.setTypeAndName("CP::JetJvtEfficiency/FJVTEfficiencyTool_"+toolName);
+  // if (!m_jetFwdJvtEfficiencyTool.isUserConfigured()) {
+  //   toolName = m_doFwdJVT ? m_metJetSelection+"_fJVT" : m_metJetSelection+"_NOfJVT";
+  //   m_jetFwdJvtEfficiencyTool.setTypeAndName("CP::JetJvtEfficiency/FJVTEfficiencyTool_"+toolName);
 
-    // build SFFile path with folder name from config
-    m_fJvtConfig_SFFile = "JetJvtEfficiency/" + m_fJvtConfig; 
-    if (m_jetInputType == xAOD::JetInput::EMTopo) { m_fJvtConfig_SFFile += "fJvtSFFile.EMtopo.root"; }
-    else if (m_jetInputType == xAOD::JetInput::EMPFlow) { m_fJvtConfig_SFFile += "fJvtSFFile.EMPFlow.root"; }
-    else {
-      ATH_MSG_ERROR("Cannot configure fJVT uncertainties for unsupported jet input type (neither EMTopo nor EMPFlow)");
-      return StatusCode::FAILURE;
-    }
+  //   // build SFFile path with folder name from config
+  //   m_fJvtConfig_SFFile = "JetJvtEfficiency/" + m_fJvtConfig; 
+  //   if (m_jetInputType == xAOD::JetInput::EMTopo) { m_fJvtConfig_SFFile += "fJvtSFFile.EMtopo.root"; }
+  //   else if (m_jetInputType == xAOD::JetInput::EMPFlow) { m_fJvtConfig_SFFile += "fJvtSFFile.EMPFlow.root"; }
+  //   else {
+  //     ATH_MSG_ERROR("Cannot configure fJVT uncertainties for unsupported jet input type (neither EMTopo nor EMPFlow)");
+  //     return StatusCode::FAILURE;
+  //   }
 
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("JetfJvtMomentName", "passFJvt") );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("ScaleFactorDecorationName", "fJVTSF") ); // set decoration name
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("WorkingPoint", m_fJvtWP) );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("MaxPtForJvt", m_fJvtPtMax) );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("UseMuSFFormat", true) );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("SFFile", m_fJvtConfig_SFFile) );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_jetFwdJvtEfficiencyTool.retrieve() );
-  } else  ATH_CHECK( m_jetFwdJvtEfficiencyTool.retrieve() );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("JetfJvtMomentName", "passFJvt") );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("ScaleFactorDecorationName", "fJVTSF") ); // set decoration name
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("WorkingPoint", m_fJvtWP) );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("MaxPtForJvt", m_fJvtPtMax) );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("UseMuSFFormat", true) );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("SFFile", m_fJvtConfig_SFFile) );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_jetFwdJvtEfficiencyTool.retrieve() );
+  // } else  ATH_CHECK( m_jetFwdJvtEfficiencyTool.retrieve() );
   
 
   ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1079,301 +1079,301 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   // /////////////////////////////////////////////////////////////////////////////////////////
   // Initialise photon efficiency tool
 
-  if (!m_photonEfficiencySFTool.isUserConfigured() && !isData()) {
-    m_photonEfficiencySFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_" + m_photonId);
+  // if (!m_photonEfficiencySFTool.isUserConfigured() && !isData()) {
+  //   m_photonEfficiencySFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_" + m_photonId);
 
-    if (m_photonId != "Tight" ) {
-      ATH_MSG_WARNING( "No Photon efficiency available for " << m_photonId << ", using Tight instead..." );
-    }
+  //   if (m_photonId != "Tight" ) {
+  //     ATH_MSG_WARNING( "No Photon efficiency available for " << m_photonId << ", using Tight instead..." );
+  //   }
 
-    ATH_CHECK( m_photonEfficiencySFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
-    ATH_CHECK( m_photonEfficiencySFTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_photonEfficiencySFTool.retrieve() );
-  } else if (m_photonEfficiencySFTool.isUserConfigured()) ATH_CHECK( m_photonEfficiencySFTool.retrieve() );
+  //   ATH_CHECK( m_photonEfficiencySFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
+  //   ATH_CHECK( m_photonEfficiencySFTool.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_photonEfficiencySFTool.retrieve() );
+  // } else if (m_photonEfficiencySFTool.isUserConfigured()) ATH_CHECK( m_photonEfficiencySFTool.retrieve() );
  
-  if (!m_photonIsolationSFTool.isUserConfigured() && !isData()) {
-    m_photonIsolationSFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_isol" + m_photonIso_WP);
+//   if (!m_photonIsolationSFTool.isUserConfigured() && !isData()) {
+//     m_photonIsolationSFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_isol" + m_photonIso_WP);
 
-    if (m_photonIso_WP != "FixedCutTight" && m_photonIso_WP != "FixedCutLoose" && m_photonIso_WP != "FixedCutTightCaloOnly") {
-      ATH_MSG_WARNING( "No Photon efficiency available for " << m_photonIso_WP);
-    }
+//     if (m_photonIso_WP != "FixedCutTight" && m_photonIso_WP != "FixedCutLoose" && m_photonIso_WP != "FixedCutTightCaloOnly") {
+//       ATH_MSG_WARNING( "No Photon efficiency available for " << m_photonIso_WP);
+//     }
 
-    ATH_CHECK( m_photonIsolationSFTool.setProperty("IsoKey", m_photonIso_WP.substr(8) ));    // Set isolation WP: Loose,Tight,TightCaloOnly
-    ATH_CHECK( m_photonIsolationSFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
-    ATH_CHECK( m_photonIsolationSFTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_photonIsolationSFTool.retrieve() );
-  } else if (m_photonEfficiencySFTool.isUserConfigured()) ATH_CHECK( m_photonIsolationSFTool.retrieve() );
+//     ATH_CHECK( m_photonIsolationSFTool.setProperty("IsoKey", m_photonIso_WP.substr(8) ));    // Set isolation WP: Loose,Tight,TightCaloOnly
+//     ATH_CHECK( m_photonIsolationSFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
+//     ATH_CHECK( m_photonIsolationSFTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_photonIsolationSFTool.retrieve() );
+//   } else if (m_photonEfficiencySFTool.isUserConfigured()) ATH_CHECK( m_photonIsolationSFTool.retrieve() );
  
 
-  // trigger scale factors 
-  if (!m_photonTriggerSFTool.isUserConfigured() && !isData()) {
-    m_photonTriggerSFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_trig" + m_photonTriggerName);
+//   // trigger scale factors 
+//   if (!m_photonTriggerSFTool.isUserConfigured() && !isData()) {
+//     m_photonTriggerSFTool.setTypeAndName("AsgPhotonEfficiencyCorrectionTool/AsgPhotonEfficiencyCorrectionTool_trig" + m_photonTriggerName);
 
-    // Fallback to TightCaloOnly if Tight is selected
-    std::string photonIso_forTrigSF = m_photonIso_WP;
-    if (m_photonIso_WP == "FixedCutTight") {
-      ATH_MSG_WARNING( "No Photon trigger SF available for " << m_photonIso_WP << ", using TightCaloOnly instead... Use at your own risk" );  
-      photonIso_forTrigSF = "TightCaloOnly";
-    } else { //  isolation WP supported: Loose or TightCaloOnly, removing "FixedCut" suffix..
-      photonIso_forTrigSF = TString(m_photonIso_WP).ReplaceAll("FixedCut","").Data();
-    } 
+//     // Fallback to TightCaloOnly if Tight is selected
+//     std::string photonIso_forTrigSF = m_photonIso_WP;
+//     if (m_photonIso_WP == "FixedCutTight") {
+//       ATH_MSG_WARNING( "No Photon trigger SF available for " << m_photonIso_WP << ", using TightCaloOnly instead... Use at your own risk" );  
+//       photonIso_forTrigSF = "TightCaloOnly";
+//     } else { //  isolation WP supported: Loose or TightCaloOnly, removing "FixedCut" suffix..
+//       photonIso_forTrigSF = TString(m_photonIso_WP).ReplaceAll("FixedCut","").Data();
+//     } 
 
-    // "symmetric" diphoton triggers (year dependent)
-    ATH_CHECK( m_photonTriggerSFTool.setProperty("IsoKey", photonIso_forTrigSF ));    // Set isolation WP: Loose,TightCaloOnly 
-    ATH_CHECK( m_photonTriggerSFTool.setProperty("TriggerKey", m_photonTriggerName ));    
-    ATH_CHECK( m_photonTriggerSFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
-    ATH_CHECK( m_photonTriggerSFTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_photonTriggerSFTool.retrieve() );
+//     // "symmetric" diphoton triggers (year dependent)
+//     ATH_CHECK( m_photonTriggerSFTool.setProperty("IsoKey", photonIso_forTrigSF ));    // Set isolation WP: Loose,TightCaloOnly 
+//     ATH_CHECK( m_photonTriggerSFTool.setProperty("TriggerKey", m_photonTriggerName ));    
+//     ATH_CHECK( m_photonTriggerSFTool.setProperty("ForceDataType", 1) ); // Set data type: 1 for FULLSIM, 3 for AF2
+//     ATH_CHECK( m_photonTriggerSFTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_photonTriggerSFTool.retrieve() );
 
-    // "asymmetric" diphoton triggers
-    std::map<std::string,std::string> diphotonTriggerSFMapAsymmetric {
-      // legs, Trigger keys, 
-      {"g25_loose,g25_medium_L1EM20VH", "DI_PH_2015_g25_loose_2016_g25_loose_2017_g25_medium_L1EM20VH_2018_g25_medium_L1EM20VH"},
-      {"g35_loose,g35_medium_L1EM20VH", "DI_PH_2015_g35_loose_2016_g35_loose_2017_g35_medium_L1EM20VH_2018_g35_medium_L1EM20VH"},
-    };
+//     // "asymmetric" diphoton triggers
+//     std::map<std::string,std::string> diphotonTriggerSFMapAsymmetric {
+//       // legs, Trigger keys, 
+//       {"g25_loose,g25_medium_L1EM20VH", "DI_PH_2015_g25_loose_2016_g25_loose_2017_g25_medium_L1EM20VH_2018_g25_medium_L1EM20VH"},
+//       {"g35_loose,g35_medium_L1EM20VH", "DI_PH_2015_g35_loose_2016_g35_loose_2017_g35_medium_L1EM20VH_2018_g35_medium_L1EM20VH"},
+//     };
 
-    for(auto const& item : diphotonTriggerSFMapAsymmetric){
+//     for(auto const& item : diphotonTriggerSFMapAsymmetric){
 
-      toolName = "AsgPhotonEfficiencyCorrectionTool_trigSF_asymm_diphoton_" + (item.first).substr(0,9) + photonIso_forTrigSF;
-      auto ph_trigSF = m_photonEfficiencySFTool_trigSF_AsymDiphoton.emplace(m_photonEfficiencySFTool_trigSF_AsymDiphoton.end(), "AsgPhotonEfficiencyCorrectionTool/"+toolName);
-      ATH_CHECK( ph_trigSF->setProperty("IsoKey", photonIso_forTrigSF) );
-      ATH_CHECK( ph_trigSF->setProperty("TriggerKey", item.second) );
-      ATH_CHECK( ph_trigSF->setProperty("ForceDataType", 1) ); // Set DataType: 1 for FullSim and 3 for AFII
-      ATH_CHECK( ph_trigSF->setProperty("OutputLevel", this->msg().level()) );
-      ATH_CHECK( ph_trigSF->initialize() );
-      m_photonTrigSFTools.push_back(ph_trigSF->getHandle());
-#ifndef XAOD_STANDALONE
-      m_legsPerTool_ph[toolName] = item.first;
-#else
-      m_legsPerTool_ph["ToolSvc."+toolName] = item.first;
-#endif
+//       toolName = "AsgPhotonEfficiencyCorrectionTool_trigSF_asymm_diphoton_" + (item.first).substr(0,9) + photonIso_forTrigSF;
+//       auto ph_trigSF = m_photonEfficiencySFTool_trigSF_AsymDiphoton.emplace(m_photonEfficiencySFTool_trigSF_AsymDiphoton.end(), "AsgPhotonEfficiencyCorrectionTool/"+toolName);
+//       ATH_CHECK( ph_trigSF->setProperty("IsoKey", photonIso_forTrigSF) );
+//       ATH_CHECK( ph_trigSF->setProperty("TriggerKey", item.second) );
+//       ATH_CHECK( ph_trigSF->setProperty("ForceDataType", 1) ); // Set DataType: 1 for FullSim and 3 for AFII
+//       ATH_CHECK( ph_trigSF->setProperty("OutputLevel", this->msg().level()) );
+//       ATH_CHECK( ph_trigSF->initialize() );
+//       m_photonTrigSFTools.push_back(ph_trigSF->getHandle());
+// #ifndef XAOD_STANDALONE
+//       m_legsPerTool_ph[toolName] = item.first;
+// #else
+//       m_legsPerTool_ph["ToolSvc."+toolName] = item.first;
+// #endif
 
-      toolName = "AsgPhotonEfficiencyCorrectionTool_trigEff_asymm_diphoton_" + (item.first).substr(0,9) + photonIso_forTrigSF;
-      auto ph_trigEff = m_photonEfficiencySFTool_trigEff_AsymDiphoton.emplace(m_photonEfficiencySFTool_trigEff_AsymDiphoton.end(), "AsgPhotonEfficiencyCorrectionTool/"+toolName);
-      ATH_CHECK( ph_trigEff->setProperty("IsoKey", photonIso_forTrigSF) );
-      ATH_CHECK( ph_trigEff->setProperty("TriggerKey", "Eff_"+item.second) );
-      ATH_CHECK( ph_trigEff->setProperty("ForceDataType", 1) ); // Set DataType: 1 for FullSim and 3 for AFII
-      ATH_CHECK( ph_trigEff->setProperty("OutputLevel", this->msg().level()) );
-      ATH_CHECK( ph_trigEff->initialize() );
-      m_photonTrigEffTools.push_back(ph_trigEff->getHandle());
-#ifndef XAOD_STANDALONE
-      m_legsPerTool_ph[toolName] = item.first;
-#else
-      m_legsPerTool_ph["ToolSvc."+toolName] = item.first;
-#endif
+//       toolName = "AsgPhotonEfficiencyCorrectionTool_trigEff_asymm_diphoton_" + (item.first).substr(0,9) + photonIso_forTrigSF;
+//       auto ph_trigEff = m_photonEfficiencySFTool_trigEff_AsymDiphoton.emplace(m_photonEfficiencySFTool_trigEff_AsymDiphoton.end(), "AsgPhotonEfficiencyCorrectionTool/"+toolName);
+//       ATH_CHECK( ph_trigEff->setProperty("IsoKey", photonIso_forTrigSF) );
+//       ATH_CHECK( ph_trigEff->setProperty("TriggerKey", "Eff_"+item.second) );
+//       ATH_CHECK( ph_trigEff->setProperty("ForceDataType", 1) ); // Set DataType: 1 for FullSim and 3 for AFII
+//       ATH_CHECK( ph_trigEff->setProperty("OutputLevel", this->msg().level()) );
+//       ATH_CHECK( ph_trigEff->initialize() );
+//       m_photonTrigEffTools.push_back(ph_trigEff->getHandle());
+// #ifndef XAOD_STANDALONE
+//       m_legsPerTool_ph[toolName] = item.first;
+// #else
+//       m_legsPerTool_ph["ToolSvc."+toolName] = item.first;
+// #endif
 
-    }
-  }
+//     }
+//   }
 
- ///////////////////////////////////////////////////////////////////////////////////////////
- // Initialize the MC fudge tool
+//  ///////////////////////////////////////////////////////////////////////////////////////////
+//  // Initialize the MC fudge tool
 
-  if (!m_electronPhotonShowerShapeFudgeTool.isUserConfigured()) {
-    m_electronPhotonShowerShapeFudgeTool.setTypeAndName("ElectronPhotonShowerShapeFudgeTool/ElectronPhotonShowerShapeFudgeTool");
+//   if (!m_electronPhotonShowerShapeFudgeTool.isUserConfigured()) {
+//     m_electronPhotonShowerShapeFudgeTool.setTypeAndName("ElectronPhotonShowerShapeFudgeTool/ElectronPhotonShowerShapeFudgeTool");
 
-    int FFset = 22;
-    ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.setProperty("Preselection", FFset) );
-    ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.retrieve() );
-  } else ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.retrieve() );
+//     int FFset = 22;
+//     ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.setProperty("Preselection", FFset) );
+//     ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.retrieve() );
+//   } else ATH_CHECK( m_electronPhotonShowerShapeFudgeTool.retrieve() );
   
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialize the EgammaAmbiguityTool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialize the EgammaAmbiguityTool
 
-  if (!m_egammaAmbiguityTool.isUserConfigured()) {
-    m_egammaAmbiguityTool.setTypeAndName("EGammaAmbiguityTool/EGammaAmbiguityTool");
-    ATH_CHECK( m_egammaAmbiguityTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_egammaAmbiguityTool.retrieve() );
-  } else ATH_CHECK( m_egammaAmbiguityTool.retrieve() );
+//   if (!m_egammaAmbiguityTool.isUserConfigured()) {
+//     m_egammaAmbiguityTool.setTypeAndName("EGammaAmbiguityTool/EGammaAmbiguityTool");
+//     ATH_CHECK( m_egammaAmbiguityTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_egammaAmbiguityTool.retrieve() );
+//   } else ATH_CHECK( m_egammaAmbiguityTool.retrieve() );
  
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialize the AsgElectronChargeIDSelector
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialize the AsgElectronChargeIDSelector
 
-  if (!m_elecChargeIDSelectorTool.isUserConfigured()) {
+//   if (!m_elecChargeIDSelectorTool.isUserConfigured()) {
 
-    // For the selector, can use the nice function
-    std::string eleId = EG_WP(m_eleId);
-    m_elecChargeIDSelectorTool.setTypeAndName("AsgElectronChargeIDSelectorTool/ElectronChargeIDSelectorTool_"+eleId);
-    //default cut value for https://twiki.cern.ch/twiki/bin/view/AtlasProtected/ElectronChargeFlipTaggerTool
-    float BDTcut = -0.337671; // Loose 97%
-    if (m_eleChID_WP != "Loose" && !m_eleChID_WP.empty()) {
-      ATH_MSG_ERROR("Only Loose WP is supported in R21. Invalid ChargeIDSelector WP selected : " << m_eleChID_WP);
-      return StatusCode::FAILURE;
-    } 
+//     // For the selector, can use the nice function
+//     std::string eleId = EG_WP(m_eleId);
+//     m_elecChargeIDSelectorTool.setTypeAndName("AsgElectronChargeIDSelectorTool/ElectronChargeIDSelectorTool_"+eleId);
+//     //default cut value for https://twiki.cern.ch/twiki/bin/view/AtlasProtected/ElectronChargeFlipTaggerTool
+//     float BDTcut = -0.337671; // Loose 97%
+//     if (m_eleChID_WP != "Loose" && !m_eleChID_WP.empty()) {
+//       ATH_MSG_ERROR("Only Loose WP is supported in R21. Invalid ChargeIDSelector WP selected : " << m_eleChID_WP);
+//       return StatusCode::FAILURE;
+//     } 
 
-    ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("TrainingFile", "ElectronPhotonSelectorTools/ChargeID/ECIDS_20180731rel21Summer2018.root"));
-    ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("CutOnBDT", BDTcut));
-    ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_elecChargeIDSelectorTool.retrieve() );
-  } else  ATH_CHECK( m_elecChargeIDSelectorTool.retrieve() );
+//     ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("TrainingFile", "ElectronPhotonSelectorTools/ChargeID/ECIDS_20180731rel21Summer2018.root"));
+//     ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("CutOnBDT", BDTcut));
+//     ATH_CHECK( m_elecChargeIDSelectorTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_elecChargeIDSelectorTool.retrieve() );
+//   } else  ATH_CHECK( m_elecChargeIDSelectorTool.retrieve() );
  
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise egamma calibration tool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise egamma calibration tool
 
-  if (!m_egammaCalibTool.isUserConfigured()) {
-    m_egammaCalibTool.setTypeAndName("CP::EgammaCalibrationAndSmearingTool/EgammaCalibrationAndSmearingTool");
-    ATH_MSG_DEBUG( "Initialising EgcalibTool " );
-    ATH_CHECK( m_egammaCalibTool.setProperty("ESModel", "es2018_R21_v0") ); //used for analysis using data processed with 21.0
-    ATH_CHECK( m_egammaCalibTool.setProperty("decorrelationModel", "1NP_v1") );
-    ATH_CHECK( m_egammaCalibTool.setProperty("useAFII", isAtlfast()?1:0) );
-    ATH_CHECK( m_egammaCalibTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_egammaCalibTool.retrieve() );
-  } else ATH_CHECK( m_egammaCalibTool.retrieve() );
+//   if (!m_egammaCalibTool.isUserConfigured()) {
+//     m_egammaCalibTool.setTypeAndName("CP::EgammaCalibrationAndSmearingTool/EgammaCalibrationAndSmearingTool");
+//     ATH_MSG_DEBUG( "Initialising EgcalibTool " );
+//     ATH_CHECK( m_egammaCalibTool.setProperty("ESModel", "es2018_R21_v0") ); //used for analysis using data processed with 21.0
+//     ATH_CHECK( m_egammaCalibTool.setProperty("decorrelationModel", "1NP_v1") );
+//     ATH_CHECK( m_egammaCalibTool.setProperty("useAFII", isAtlfast()?1:0) );
+//     ATH_CHECK( m_egammaCalibTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_egammaCalibTool.retrieve() );
+//   } else ATH_CHECK( m_egammaCalibTool.retrieve() );
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// No tau score re-decorator in R21; might come back some day, would go here
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // No tau score re-decorator in R21; might come back some day, would go here
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise tau selection tools
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise tau selection tools
 
-  if (!m_tauSelTool.isUserConfigured()) {
-    std::string inputfile = "";
-    if (!m_tauConfigPath.empty() && (m_tauConfigPath!="default")) inputfile = m_tauConfigPath;
-    else if (m_tauId == "VeryLoose") inputfile = "SUSYTools/tau_selection_veryloose.conf";
-    else if (m_tauId == "Loose") inputfile = "SUSYTools/tau_selection_loose.conf";
-    else if (m_tauId == "Medium") inputfile = "SUSYTools/tau_selection_medium.conf";
-    else if (m_tauId == "Tight") inputfile = "SUSYTools/tau_selection_tight.conf";
-    else {
-      ATH_MSG_ERROR("Invalid tau ID selected: " << m_tauId);
-      return StatusCode::FAILURE;
-    }
-    toolName = "TauSelectionTool_" + m_tauId;
-    m_tauSelTool.setTypeAndName("TauAnalysisTools::TauSelectionTool/"+toolName);
-    ATH_CHECK( m_tauSelTool.setProperty("ConfigPath", inputfile) );
+//   if (!m_tauSelTool.isUserConfigured()) {
+//     std::string inputfile = "";
+//     if (!m_tauConfigPath.empty() && (m_tauConfigPath!="default")) inputfile = m_tauConfigPath;
+//     else if (m_tauId == "VeryLoose") inputfile = "SUSYTools/tau_selection_veryloose.conf";
+//     else if (m_tauId == "Loose") inputfile = "SUSYTools/tau_selection_loose.conf";
+//     else if (m_tauId == "Medium") inputfile = "SUSYTools/tau_selection_medium.conf";
+//     else if (m_tauId == "Tight") inputfile = "SUSYTools/tau_selection_tight.conf";
+//     else {
+//       ATH_MSG_ERROR("Invalid tau ID selected: " << m_tauId);
+//       return StatusCode::FAILURE;
+//     }
+//     toolName = "TauSelectionTool_" + m_tauId;
+//     m_tauSelTool.setTypeAndName("TauAnalysisTools::TauSelectionTool/"+toolName);
+//     ATH_CHECK( m_tauSelTool.setProperty("ConfigPath", inputfile) );
 
-    ATH_CHECK( m_tauSelTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauSelTool.retrieve() );
-  } else  ATH_CHECK( m_tauSelTool.retrieve() );
+//     ATH_CHECK( m_tauSelTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_tauSelTool.retrieve() );
+//   } else  ATH_CHECK( m_tauSelTool.retrieve() );
   
 
-  if (!m_tauSelToolBaseline.isUserConfigured()) {
-    std::string inputfile = "";
-    if (!m_tauConfigPathBaseline.empty() && (m_tauConfigPathBaseline!="default")) inputfile = m_tauConfigPathBaseline;
-    else if (m_tauIdBaseline == "VeryLoose") inputfile = "SUSYTools/tau_selection_veryloose.conf";
-    else if (m_tauIdBaseline == "Loose") inputfile = "SUSYTools/tau_selection_loose.conf";
-    else if (m_tauIdBaseline == "Medium") inputfile = "SUSYTools/tau_selection_medium.conf";
-    else if (m_tauIdBaseline == "Tight") inputfile = "SUSYTools/tau_selection_tight.conf";
-    else {
-      ATH_MSG_ERROR("Invalid baseline tau ID selected: " << m_tauIdBaseline);
-      return StatusCode::FAILURE;
-    }
-    toolName = "TauSelectionToolBaseline_" + m_tauIdBaseline;
-    m_tauSelToolBaseline.setTypeAndName("TauAnalysisTools::TauSelectionTool/"+toolName);
-    ATH_CHECK( m_tauSelToolBaseline.setProperty("ConfigPath", inputfile) );
+//   if (!m_tauSelToolBaseline.isUserConfigured()) {
+//     std::string inputfile = "";
+//     if (!m_tauConfigPathBaseline.empty() && (m_tauConfigPathBaseline!="default")) inputfile = m_tauConfigPathBaseline;
+//     else if (m_tauIdBaseline == "VeryLoose") inputfile = "SUSYTools/tau_selection_veryloose.conf";
+//     else if (m_tauIdBaseline == "Loose") inputfile = "SUSYTools/tau_selection_loose.conf";
+//     else if (m_tauIdBaseline == "Medium") inputfile = "SUSYTools/tau_selection_medium.conf";
+//     else if (m_tauIdBaseline == "Tight") inputfile = "SUSYTools/tau_selection_tight.conf";
+//     else {
+//       ATH_MSG_ERROR("Invalid baseline tau ID selected: " << m_tauIdBaseline);
+//       return StatusCode::FAILURE;
+//     }
+//     toolName = "TauSelectionToolBaseline_" + m_tauIdBaseline;
+//     m_tauSelToolBaseline.setTypeAndName("TauAnalysisTools::TauSelectionTool/"+toolName);
+//     ATH_CHECK( m_tauSelToolBaseline.setProperty("ConfigPath", inputfile) );
 
-    ATH_CHECK( m_tauSelToolBaseline.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauSelToolBaseline.retrieve() );
-  } else  ATH_CHECK( m_tauSelToolBaseline.retrieve() );
+//     ATH_CHECK( m_tauSelToolBaseline.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_tauSelToolBaseline.retrieve() );
+//   } else  ATH_CHECK( m_tauSelToolBaseline.retrieve() );
  
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise tau efficiency tool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise tau efficiency tool
 
-  if (!m_tauEffTool.isUserConfigured()) {
-    toolName = "TauEffTool_" + m_tauId;
-    m_tauEffTool.setTypeAndName("TauAnalysisTools::TauEfficiencyCorrectionsTool/"+toolName);
-    ATH_CHECK( m_tauEffTool.setProperty("PileupReweightingTool",m_prwTool.getHandle()) );
+//   if (!m_tauEffTool.isUserConfigured()) {
+//     toolName = "TauEffTool_" + m_tauId;
+//     m_tauEffTool.setTypeAndName("TauAnalysisTools::TauEfficiencyCorrectionsTool/"+toolName);
+//     ATH_CHECK( m_tauEffTool.setProperty("PileupReweightingTool",m_prwTool.getHandle()) );
 
-    if (!m_tauSelTool.empty()) {
-      ATH_CHECK( m_tauEffTool.setProperty("TauSelectionTool", m_tauSelTool.getHandle()) );
-    }
-    ATH_CHECK( m_tauEffTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauEffTool.setProperty("isAFII", isAtlfast()) );
-    ATH_CHECK( m_tauEffTool.retrieve() );
-  } else ATH_CHECK( m_tauEffTool.retrieve() );
+//     if (!m_tauSelTool.empty()) {
+//       ATH_CHECK( m_tauEffTool.setProperty("TauSelectionTool", m_tauSelTool.getHandle()) );
+//     }
+//     ATH_CHECK( m_tauEffTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_tauEffTool.setProperty("isAFII", isAtlfast()) );
+//     ATH_CHECK( m_tauEffTool.retrieve() );
+//   } else ATH_CHECK( m_tauEffTool.retrieve() );
 
 
-  // TODO: add SF tool for baseline tau id as well? /CO
+//   // TODO: add SF tool for baseline tau id as well? /CO
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise tau trigger efficiency tool(s)
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise tau trigger efficiency tool(s)
 
-  if (!isData()) {
-    int iTauID = (int) TauAnalysisTools::JETIDNONEUNCONFIGURED;
-    if (m_tauId == "VeryLoose")   iTauID = (int) TauAnalysisTools::JETIDRNNVERYLOOSE;
-    else if (m_tauId == "Loose")  iTauID = (int) TauAnalysisTools::JETIDRNNLOOSE;
-    else if (m_tauId == "Medium") iTauID = (int) TauAnalysisTools::JETIDRNNMEDIUM;
-    else if (m_tauId == "Tight")  iTauID = (int) TauAnalysisTools::JETIDRNNTIGHT;
-    else {
-      ATH_MSG_ERROR("Invalid tau ID selected: " << m_tauId);
-      return StatusCode::FAILURE;
-    }
+//   if (!isData()) {
+//     int iTauID = (int) TauAnalysisTools::JETIDNONEUNCONFIGURED;
+//     if (m_tauId == "VeryLoose")   iTauID = (int) TauAnalysisTools::JETIDRNNVERYLOOSE;
+//     else if (m_tauId == "Loose")  iTauID = (int) TauAnalysisTools::JETIDRNNLOOSE;
+//     else if (m_tauId == "Medium") iTauID = (int) TauAnalysisTools::JETIDRNNMEDIUM;
+//     else if (m_tauId == "Tight")  iTauID = (int) TauAnalysisTools::JETIDRNNTIGHT;
+//     else {
+//       ATH_MSG_ERROR("Invalid tau ID selected: " << m_tauId);
+//       return StatusCode::FAILURE;
+//     }
     
-    // map format: SF file name, corresponding single-tau leg (comma-separated in case of OR)
-    m_tau_trig_support = {
-      {"HLT_tau25_medium1_tracktwo", "HLT_tau25_medium1_tracktwo"},
-      {"HLT_tau35_medium1_tracktwo", "HLT_tau35_medium1_tracktwo"},
-      {"HLT_tau50L1TAU12_medium1_tracktwo", "HLT_tau50_medium1_tracktwo_L1TAU12"},
-      {"HLT_tau60_medium1_tracktwo", "HLT_tau60_medium1_tracktwo"},
-      {"HLT_tau80L1TAU60_medium1_tracktwo", "HLT_tau80_medium1_tracktwo_L1TAU60"},
-      {"HLT_tau125_medium1_tracktwo", "HLT_tau125_medium1_tracktwo"},
-      {"HLT_tau160_medium1_tracktwo", "HLT_tau160_medium1_tracktwo"},
-      {"HLT_tau160L1TAU100_medium1_tracktwo", "HLT_tau160_medium1_tracktwo_L1TAU100"},
-      // whole 2018 data taking period
-      {"HLT_tau25_medium1_tracktwoEF", "HLT_tau25_medium1_tracktwoEF"},
-      {"HLT_tau35L1TAU12IM_medium1_tracktwoEF", "HLT_tau35_medium1_tracktwoEF_L1TAU12IM"},
-      {"HLT_tau35_medium1_tracktwoEF", "HLT_tau35_medium1_tracktwoEF"},
-      {"HLT_tau60_medium1_tracktwoEF", "HLT_tau60_medium1_tracktwoEF"},
-      {"HLT_tau80L1TAU60_medium1_tracktwoEF", "HLT_tau80_medium1_tracktwoEF_L1TAU60"},
-      {"HLT_tau160L1TAU100_medium1_tracktwoEF", "HLT_tau160_medium1_tracktwoEF_L1TAU100"},
-      // 2018 data after TS1, run >= 355261
-      {"HLT_tau25_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau25_medium1_tracktwoEF,HLT_tau25_mediumRNN_tracktwoMVA"},
-      {"HLT_tau35L1TAU12IM_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau35_medium1_tracktwoEF_L1TAU12IM,HLT_tau35_mediumRNN_tracktwoMVA_L1TAU12IM"},
-      {"HLT_tau35_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau35_medium1_tracktwoEF,HLT_tau35_mediumRNN_tracktwoMVA"},
-      {"HLT_tau60_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau60_medium1_tracktwoEF,HLT_tau60_mediumRNN_tracktwoMVA"},
-      {"HLT_tau80L1TAU60_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau80_medium1_tracktwoEF_L1TAU60,HLT_tau80_mediumRNN_tracktwoMVA_L1TAU60"},
-      {"HLT_tau160L1TAU100_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau160_medium1_tracktwoEF_L1TAU100,HLT_tau160_mediumRNN_tracktwoMVA_L1TAU100"}
-    };
+//     // map format: SF file name, corresponding single-tau leg (comma-separated in case of OR)
+//     m_tau_trig_support = {
+//       {"HLT_tau25_medium1_tracktwo", "HLT_tau25_medium1_tracktwo"},
+//       {"HLT_tau35_medium1_tracktwo", "HLT_tau35_medium1_tracktwo"},
+//       {"HLT_tau50L1TAU12_medium1_tracktwo", "HLT_tau50_medium1_tracktwo_L1TAU12"},
+//       {"HLT_tau60_medium1_tracktwo", "HLT_tau60_medium1_tracktwo"},
+//       {"HLT_tau80L1TAU60_medium1_tracktwo", "HLT_tau80_medium1_tracktwo_L1TAU60"},
+//       {"HLT_tau125_medium1_tracktwo", "HLT_tau125_medium1_tracktwo"},
+//       {"HLT_tau160_medium1_tracktwo", "HLT_tau160_medium1_tracktwo"},
+//       {"HLT_tau160L1TAU100_medium1_tracktwo", "HLT_tau160_medium1_tracktwo_L1TAU100"},
+//       // whole 2018 data taking period
+//       {"HLT_tau25_medium1_tracktwoEF", "HLT_tau25_medium1_tracktwoEF"},
+//       {"HLT_tau35L1TAU12IM_medium1_tracktwoEF", "HLT_tau35_medium1_tracktwoEF_L1TAU12IM"},
+//       {"HLT_tau35_medium1_tracktwoEF", "HLT_tau35_medium1_tracktwoEF"},
+//       {"HLT_tau60_medium1_tracktwoEF", "HLT_tau60_medium1_tracktwoEF"},
+//       {"HLT_tau80L1TAU60_medium1_tracktwoEF", "HLT_tau80_medium1_tracktwoEF_L1TAU60"},
+//       {"HLT_tau160L1TAU100_medium1_tracktwoEF", "HLT_tau160_medium1_tracktwoEF_L1TAU100"},
+//       // 2018 data after TS1, run >= 355261
+//       {"HLT_tau25_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau25_medium1_tracktwoEF,HLT_tau25_mediumRNN_tracktwoMVA"},
+//       {"HLT_tau35L1TAU12IM_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau35_medium1_tracktwoEF_L1TAU12IM,HLT_tau35_mediumRNN_tracktwoMVA_L1TAU12IM"},
+//       {"HLT_tau35_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau35_medium1_tracktwoEF,HLT_tau35_mediumRNN_tracktwoMVA"},
+//       {"HLT_tau60_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau60_medium1_tracktwoEF,HLT_tau60_mediumRNN_tracktwoMVA"},
+//       {"HLT_tau80L1TAU60_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau80_medium1_tracktwoEF_L1TAU60,HLT_tau80_mediumRNN_tracktwoMVA_L1TAU60"},
+//       {"HLT_tau160L1TAU100_medium1_tracktwoEF_OR_mediumRNN_tracktwoMVA", "HLT_tau160_medium1_tracktwoEF_L1TAU100,HLT_tau160_mediumRNN_tracktwoMVA_L1TAU100"}
+//     };
     
-    for(auto const& trigger : m_tau_trig_support) {
-      toolName = "TauTrigEffTool_" + m_tauId + "_" + trigger.first;
-      auto tau_trigSF = m_tauTrigEffTool.emplace(m_tauTrigEffTool.end(), "TauAnalysisTools::TauEfficiencyCorrectionsTool/"+toolName);
-      ATH_CHECK( tau_trigSF->setProperty("EfficiencyCorrectionTypes", std::vector<int>({TauAnalysisTools::SFTriggerHadTau})) );
-      ATH_CHECK( tau_trigSF->setProperty("TriggerName", trigger.first) );
-      ATH_CHECK( tau_trigSF->setProperty("IDLevel", iTauID) );
-      ATH_CHECK( tau_trigSF->setProperty("PileupReweightingTool", m_prwTool.getHandle()) );
-      ATH_CHECK( tau_trigSF->setProperty("OutputLevel", this->msg().level()) );
-      ATH_CHECK( tau_trigSF->setProperty("isAFII", isAtlfast()) );
-      ATH_CHECK( tau_trigSF->initialize() );
-    }
-  }
+//     for(auto const& trigger : m_tau_trig_support) {
+//       toolName = "TauTrigEffTool_" + m_tauId + "_" + trigger.first;
+//       auto tau_trigSF = m_tauTrigEffTool.emplace(m_tauTrigEffTool.end(), "TauAnalysisTools::TauEfficiencyCorrectionsTool/"+toolName);
+//       ATH_CHECK( tau_trigSF->setProperty("EfficiencyCorrectionTypes", std::vector<int>({TauAnalysisTools::SFTriggerHadTau})) );
+//       ATH_CHECK( tau_trigSF->setProperty("TriggerName", trigger.first) );
+//       ATH_CHECK( tau_trigSF->setProperty("IDLevel", iTauID) );
+//       ATH_CHECK( tau_trigSF->setProperty("PileupReweightingTool", m_prwTool.getHandle()) );
+//       ATH_CHECK( tau_trigSF->setProperty("OutputLevel", this->msg().level()) );
+//       ATH_CHECK( tau_trigSF->setProperty("isAFII", isAtlfast()) );
+//       ATH_CHECK( tau_trigSF->initialize() );
+//     }
+//   }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise tau smearing tool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise tau smearing tool
 
-  if (!m_tauSmearingTool.isUserConfigured()) {
-    m_tauSmearingTool.setTypeAndName("TauAnalysisTools::TauSmearingTool/TauSmearingTool");
-    ATH_MSG_INFO("'TauMVACalibration' is the default procedure in R21");
-    ATH_CHECK( m_tauSmearingTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauSmearingTool.retrieve() );
-  } else ATH_CHECK( m_tauSmearingTool.retrieve() );
+//   if (!m_tauSmearingTool.isUserConfigured()) {
+//     m_tauSmearingTool.setTypeAndName("TauAnalysisTools::TauSmearingTool/TauSmearingTool");
+//     ATH_MSG_INFO("'TauMVACalibration' is the default procedure in R21");
+//     ATH_CHECK( m_tauSmearingTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_tauSmearingTool.retrieve() );
+//   } else ATH_CHECK( m_tauSmearingTool.retrieve() );
   
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise tau truth matching tool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise tau truth matching tool
 
-  if (!m_tauTruthMatch.isUserConfigured() && m_tauDoTTM) {
-    m_tauTruthMatch.setTypeAndName("TauAnalysisTools::TauTruthMatchingTool/TauTruthMatch");
-    ATH_CHECK( m_tauTruthMatch.setProperty("WriteTruthTaus", true) );
-    ATH_CHECK( m_tauTruthMatch.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauTruthMatch.retrieve() );
-  } else if (m_tauTruthMatch.isUserConfigured()) ATH_CHECK( m_tauTruthMatch.retrieve() );
+  // if (!m_tauTruthMatch.isUserConfigured() && m_tauDoTTM) {
+  //   m_tauTruthMatch.setTypeAndName("TauAnalysisTools::TauTruthMatchingTool/TauTruthMatch");
+  //   ATH_CHECK( m_tauTruthMatch.setProperty("WriteTruthTaus", true) );
+  //   ATH_CHECK( m_tauTruthMatch.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_tauTruthMatch.retrieve() );
+  // } else if (m_tauTruthMatch.isUserConfigured()) ATH_CHECK( m_tauTruthMatch.retrieve() );
  
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise TauOverlappingElectronLLHDecorator tool
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise TauOverlappingElectronLLHDecorator tool
 
-  if (!m_tauElORdecorator.isUserConfigured()) {
-    m_tauElORdecorator.setTypeAndName("TauAnalysisTools::TauOverlappingElectronLLHDecorator/TauEleORDecorator");
-    ATH_CHECK( m_tauElORdecorator.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_tauElORdecorator.retrieve() );
-  } else  ATH_CHECK( m_tauElORdecorator.retrieve() );
+  // if (!m_tauElORdecorator.isUserConfigured()) {
+  //   m_tauElORdecorator.setTypeAndName("TauAnalysisTools::TauOverlappingElectronLLHDecorator/TauEleORDecorator");
+  //   ATH_CHECK( m_tauElORdecorator.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_tauElORdecorator.retrieve() );
+  // } else  ATH_CHECK( m_tauElORdecorator.retrieve() );
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1537,8 +1537,8 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   } else if (m_btagEffTool_trkJet.isUserConfigured()) ATH_CHECK( m_btagEffTool_trkJet.retrieve() );
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-// Initialise MET tools
+// ///////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise MET tools
 
   if (!m_metMaker.isUserConfigured()) {
     toolName = m_doFwdJVT ? m_metJetSelection+"_fJVT" : m_metJetSelection+"_NOfJVT";
@@ -1549,8 +1549,8 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
     ATH_CHECK( m_metMaker.setProperty("DoRemoveMuonJets", m_metDoRemoveMuonJets) );
     ATH_CHECK( m_metMaker.setProperty("UseGhostMuons", m_metUseGhostMuons) );
     ATH_CHECK( m_metMaker.setProperty("DoMuonEloss", m_metDoMuonEloss) );
-    ATH_CHECK( m_metMaker.setProperty("GreedyPhotons", m_metGreedyPhotons) );
-    ATH_CHECK( m_metMaker.setProperty("VeryGreedyPhotons", m_metVeryGreedyPhotons) );
+    // ATH_CHECK( m_metMaker.setProperty("GreedyPhotons", m_metGreedyPhotons) );
+    // ATH_CHECK( m_metMaker.setProperty("VeryGreedyPhotons", m_metVeryGreedyPhotons) );
 
     // set the jet selection if default empty string is overridden through config file
     if (m_metJetSelection.size()) {
@@ -1609,22 +1609,22 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   } else ATH_CHECK( m_metSystTool.retrieve());
  
 
-  if (!m_metSignif.isUserConfigured()) {
-    // See https://twiki.cern.ch/twiki/bin/view/AtlasProtected/MetSignificance 
-    m_metSignif.setTypeAndName("met::METSignificance/metSignificance_"+jetname);
-    ATH_CHECK( m_metSignif.setProperty("SoftTermParam", m_softTermParam) );
-    ATH_CHECK( m_metSignif.setProperty("TreatPUJets", m_treatPUJets) );
-    ATH_CHECK( m_metSignif.setProperty("DoPhiReso", m_doPhiReso) );
-    ATH_CHECK( m_metSignif.setProperty("IsAFII", isAtlfast()) ); 
-    if(jetname == "AntiKt4EMTopo" || jetname =="AntiKt4EMPFlow"){
-      ATH_CHECK( m_metSignif.setProperty("JetCollection", jetname) );
-    } else {
-      ATH_MSG_WARNING("Object-based METSignificance recommendations only exist for EMTopo and PFlow, falling back to AntiKt4EMTopo");
-      ATH_CHECK( m_metSignif.setProperty("JetCollection", "AntiKt4EMTopo") );
-    }
-    ATH_CHECK( m_metSignif.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_metSignif.retrieve() );
-  } else ATH_CHECK( m_metSignif.retrieve() );
+  // if (!m_metSignif.isUserConfigured()) {
+  //   // See https://twiki.cern.ch/twiki/bin/view/AtlasProtected/MetSignificance 
+  //   m_metSignif.setTypeAndName("met::METSignificance/metSignificance_"+jetname);
+  //   ATH_CHECK( m_metSignif.setProperty("SoftTermParam", m_softTermParam) );
+  //   ATH_CHECK( m_metSignif.setProperty("TreatPUJets", m_treatPUJets) );
+  //   ATH_CHECK( m_metSignif.setProperty("DoPhiReso", m_doPhiReso) );
+  //   ATH_CHECK( m_metSignif.setProperty("IsAFII", isAtlfast()) ); 
+  //   if(jetname == "AntiKt4EMTopo" || jetname =="AntiKt4EMPFlow"){
+  //     ATH_CHECK( m_metSignif.setProperty("JetCollection", jetname) );
+  //   } else {
+  //     ATH_MSG_WARNING("Object-based METSignificance recommendations only exist for EMTopo and PFlow, falling back to AntiKt4EMTopo");
+  //     ATH_CHECK( m_metSignif.setProperty("JetCollection", "AntiKt4EMTopo") );
+  //   }
+  //   ATH_CHECK( m_metSignif.setProperty("OutputLevel", this->msg().level()) );
+  //   ATH_CHECK( m_metSignif.retrieve() );
+  // } else ATH_CHECK( m_metSignif.retrieve() );
   
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1643,19 +1643,19 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   } else  ATH_CHECK( m_trigDecTool.retrieve() );
   
 
-  if (!m_trigMatchingTool.isUserConfigured()) {
-    if (!m_upstreamTriggerMatching){
-      m_trigMatchingTool.setTypeAndName("Trig::MatchingTool/TrigMatchingTool");
-      ATH_CHECK( m_trigMatchingTool.setProperty("TrigDecisionTool", m_trigDecTool.getHandle()) );
-      ATH_CHECK( m_trigMatchingTool.setProperty("OutputLevel", this->msg().level()) );
-      ATH_CHECK( m_trigMatchingTool.retrieve() );
-    } else {
-      m_trigMatchingTool.setTypeAndName("Trig::MatchFromCompositeTool/TrigMatchFromCompositeTool");
-      ATH_CHECK( m_trigMatchingTool.setProperty("OutputLevel", this->msg().level()) );
-      ATH_CHECK( m_trigMatchingTool.setProperty("InputPrefix", m_trigMatchingPrefix) );
-      ATH_CHECK( m_trigMatchingTool.retrieve() );
-    }
-  } else  ATH_CHECK( m_trigMatchingTool.retrieve() );
+  // if (!m_trigMatchingTool.isUserConfigured()) {
+  //   if (!m_upstreamTriggerMatching){
+  //     m_trigMatchingTool.setTypeAndName("Trig::MatchingTool/TrigMatchingTool");
+  //     ATH_CHECK( m_trigMatchingTool.setProperty("TrigDecisionTool", m_trigDecTool.getHandle()) );
+  //     ATH_CHECK( m_trigMatchingTool.setProperty("OutputLevel", this->msg().level()) );
+  //     ATH_CHECK( m_trigMatchingTool.retrieve() );
+  //   } else {
+  //     m_trigMatchingTool.setTypeAndName("Trig::MatchFromCompositeTool/TrigMatchFromCompositeTool");
+  //     ATH_CHECK( m_trigMatchingTool.setProperty("OutputLevel", this->msg().level()) );
+  //     ATH_CHECK( m_trigMatchingTool.setProperty("InputPrefix", m_trigMatchingPrefix) );
+  //     ATH_CHECK( m_trigMatchingTool.retrieve() );
+  //   }
+  // } else  ATH_CHECK( m_trigMatchingTool.retrieve() );
   
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1746,72 +1746,72 @@ StatusCode SUSYObjDef_xAOD::SUSYToolsInit()
   // } else  ATH_CHECK( m_trigGlobalEffCorrTool_diPhoton.initialize() );
  
 
-// /////////////////////////////////////////////////////////////////////////////////////////
-// Initialise Isolation Correction Tool
+// // /////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise Isolation Correction Tool
 
-  if ( !m_isoCorrTool.isUserConfigured() ) {
-    m_isoCorrTool.setTypeAndName("CP::IsolationCorrectionTool/IsoCorrTool");
-    ATH_CHECK( m_isoCorrTool.setProperty( "IsMC", !isData()) );
-    ATH_CHECK( m_isoCorrTool.setProperty( "AFII_corr", isAtlfast()) );
-    ATH_CHECK( m_isoCorrTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_isoCorrTool.retrieve() );
-  } else  ATH_CHECK( m_isoCorrTool.retrieve() );
+//   if ( !m_isoCorrTool.isUserConfigured() ) {
+//     m_isoCorrTool.setTypeAndName("CP::IsolationCorrectionTool/IsoCorrTool");
+//     ATH_CHECK( m_isoCorrTool.setProperty( "IsMC", !isData()) );
+//     ATH_CHECK( m_isoCorrTool.setProperty( "AFII_corr", isAtlfast()) );
+//     ATH_CHECK( m_isoCorrTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_isoCorrTool.retrieve() );
+//   } else  ATH_CHECK( m_isoCorrTool.retrieve() );
   
 
-// /////////////////////////////////////////////////////////////////////////////////////////
-// Initialise Isolation Tool
-  if (!m_isoTool.isUserConfigured()) {
-    m_isoTool.setTypeAndName("CP::IsolationSelectionTool/IsoTool");
-    ATH_CHECK( m_isoTool.setProperty("ElectronWP", m_eleIso_WP.empty()    ? "FCLoose" : m_eleIso_WP) );
-    ATH_CHECK( m_isoTool.setProperty("MuonWP",     m_muIso_WP.empty()     ? "Loose_VarRad" : m_muIso_WP) );
-    ATH_CHECK( m_isoTool.setProperty("PhotonWP",   m_photonIso_WP.empty() ? "FixedCutTight" : m_photonIso_WP ) );
-    ATH_CHECK( m_isoTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_isoTool.retrieve() );
-  } else  ATH_CHECK( m_isoTool.retrieve() );
+// // /////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise Isolation Tool
+//   if (!m_isoTool.isUserConfigured()) {
+//     m_isoTool.setTypeAndName("CP::IsolationSelectionTool/IsoTool");
+//     ATH_CHECK( m_isoTool.setProperty("ElectronWP", m_eleIso_WP.empty()    ? "FCLoose" : m_eleIso_WP) );
+//     ATH_CHECK( m_isoTool.setProperty("MuonWP",     m_muIso_WP.empty()     ? "Loose_VarRad" : m_muIso_WP) );
+//     ATH_CHECK( m_isoTool.setProperty("PhotonWP",   m_photonIso_WP.empty() ? "FixedCutTight" : m_photonIso_WP ) );
+//     ATH_CHECK( m_isoTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_isoTool.retrieve() );
+//   } else  ATH_CHECK( m_isoTool.retrieve() );
  
-  // if (!m_isoToolLowPtPLV.isUserConfigured()) {
-  //   m_isoToolLowPtPLV.setTypeAndName("CP::IsolationLowPtPLVTool/IsoToolLowPtPLV");
-  //   ATH_CHECK( m_isoToolLowPtPLV.setProperty("OutputLevel", this->msg().level()) );
-  //   ATH_CHECK( m_isoToolLowPtPLV.retrieve() );
-  // } else  ATH_CHECK( m_isoToolLowPtPLV.retrieve() );
+//   // if (!m_isoToolLowPtPLV.isUserConfigured()) {
+//   //   m_isoToolLowPtPLV.setTypeAndName("CP::IsolationLowPtPLVTool/IsoToolLowPtPLV");
+//   //   ATH_CHECK( m_isoToolLowPtPLV.setProperty("OutputLevel", this->msg().level()) );
+//   //   ATH_CHECK( m_isoToolLowPtPLV.retrieve() );
+//   // } else  ATH_CHECK( m_isoToolLowPtPLV.retrieve() );
  
 
-  if (!m_isoBaselineTool.isUserConfigured()) {
-    m_isoBaselineTool.setTypeAndName("CP::IsolationSelectionTool/IsoBaselineTool");
-    ATH_CHECK( m_isoBaselineTool.setProperty("ElectronWP", m_eleBaselineIso_WP.empty()    ? "FCLoose" : m_eleBaselineIso_WP    ) );
-    ATH_CHECK( m_isoBaselineTool.setProperty("MuonWP",     m_muBaselineIso_WP.empty()     ? "Loose_VarRad" : m_muBaselineIso_WP     ) );
-    ATH_CHECK( m_isoBaselineTool.setProperty("PhotonWP",   m_photonBaselineIso_WP.empty() ? "FixedCutTight" : m_photonBaselineIso_WP ) );
-    ATH_CHECK( m_isoBaselineTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_isoBaselineTool.retrieve() );
-  } else ATH_CHECK( m_isoBaselineTool.retrieve() );
+//   if (!m_isoBaselineTool.isUserConfigured()) {
+//     m_isoBaselineTool.setTypeAndName("CP::IsolationSelectionTool/IsoBaselineTool");
+//     ATH_CHECK( m_isoBaselineTool.setProperty("ElectronWP", m_eleBaselineIso_WP.empty()    ? "FCLoose" : m_eleBaselineIso_WP    ) );
+//     ATH_CHECK( m_isoBaselineTool.setProperty("MuonWP",     m_muBaselineIso_WP.empty()     ? "Loose_VarRad" : m_muBaselineIso_WP     ) );
+//     ATH_CHECK( m_isoBaselineTool.setProperty("PhotonWP",   m_photonBaselineIso_WP.empty() ? "FixedCutTight" : m_photonBaselineIso_WP ) );
+//     ATH_CHECK( m_isoBaselineTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_isoBaselineTool.retrieve() );
+//   } else ATH_CHECK( m_isoBaselineTool.retrieve() );
   
 
-  if (!m_isoHighPtTool.isUserConfigured()) {
-    m_isoHighPtTool.setTypeAndName("CP::IsolationSelectionTool/IsoHighPtTool");
-    ATH_CHECK( m_isoHighPtTool.setProperty("ElectronWP", m_eleIsoHighPt_WP.empty() ? "FCLoose" : m_eleIsoHighPt_WP) );
-    ATH_CHECK( m_isoHighPtTool.setProperty("MuonWP",     m_muIsoHighPt_WP.empty()  ? "Loose_VarRad" : m_muIsoHighPt_WP ) );
-    ATH_CHECK( m_isoHighPtTool.setProperty("PhotonWP",   m_photonIso_WP.empty()    ? "FixedCutTight" : m_photonIso_WP ) );
-    ATH_CHECK( m_isoHighPtTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_isoHighPtTool.retrieve() );
-  } else ATH_CHECK( m_isoHighPtTool.retrieve() );
+//   if (!m_isoHighPtTool.isUserConfigured()) {
+//     m_isoHighPtTool.setTypeAndName("CP::IsolationSelectionTool/IsoHighPtTool");
+//     ATH_CHECK( m_isoHighPtTool.setProperty("ElectronWP", m_eleIsoHighPt_WP.empty() ? "FCLoose" : m_eleIsoHighPt_WP) );
+//     ATH_CHECK( m_isoHighPtTool.setProperty("MuonWP",     m_muIsoHighPt_WP.empty()  ? "Loose_VarRad" : m_muIsoHighPt_WP ) );
+//     ATH_CHECK( m_isoHighPtTool.setProperty("PhotonWP",   m_photonIso_WP.empty()    ? "FixedCutTight" : m_photonIso_WP ) );
+//     ATH_CHECK( m_isoHighPtTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_isoHighPtTool.retrieve() );
+//   } else ATH_CHECK( m_isoHighPtTool.retrieve() );
   
 
-// /////////////////////////////////////////////////////////////////////////////////////////
-// Initialise IsolationCloseByCorrectionTool Tool
-  if (!m_isoCloseByTool.isUserConfigured()) {
-    m_isoCloseByTool.setTypeAndName("CP::IsolationCloseByCorrectionTool/IsoCloseByTool");
-    // Actually we could debate about what is the proper tool to choose if the users have different baseline & signal islation WP's
-    ATH_CHECK( m_isoCloseByTool.setProperty("IsolationSelectionTool", m_useSigLepForIsoCloseByOR ? m_isoTool : m_isoBaselineTool));
-    ATH_CHECK( m_isoCloseByTool.setProperty("PassoverlapDecorator", m_IsoCloseByORpassLabel) );
-    ATH_CHECK( m_isoCloseByTool.setProperty("SelectionDecorator", m_useSigLepForIsoCloseByOR ? "signal" : "baseline") );
-    // Make this propery configurable as well?
-    ATH_CHECK( m_isoCloseByTool.setProperty("BackupPrefix", "ORIG") );
-    // The isolation selection decorator is updated as well by the tool
-    ATH_CHECK( m_isoCloseByTool.setProperty("IsolationSelectionDecorator", "isol") );
+// // /////////////////////////////////////////////////////////////////////////////////////////
+// // Initialise IsolationCloseByCorrectionTool Tool
+//   if (!m_isoCloseByTool.isUserConfigured()) {
+//     m_isoCloseByTool.setTypeAndName("CP::IsolationCloseByCorrectionTool/IsoCloseByTool");
+//     // Actually we could debate about what is the proper tool to choose if the users have different baseline & signal islation WP's
+//     ATH_CHECK( m_isoCloseByTool.setProperty("IsolationSelectionTool", m_useSigLepForIsoCloseByOR ? m_isoTool : m_isoBaselineTool));
+//     ATH_CHECK( m_isoCloseByTool.setProperty("PassoverlapDecorator", m_IsoCloseByORpassLabel) );
+//     ATH_CHECK( m_isoCloseByTool.setProperty("SelectionDecorator", m_useSigLepForIsoCloseByOR ? "signal" : "baseline") );
+//     // Make this propery configurable as well?
+//     ATH_CHECK( m_isoCloseByTool.setProperty("BackupPrefix", "ORIG") );
+//     // The isolation selection decorator is updated as well by the tool
+//     ATH_CHECK( m_isoCloseByTool.setProperty("IsolationSelectionDecorator", "isol") );
 
-    ATH_CHECK( m_isoCloseByTool.setProperty("OutputLevel", this->msg().level()) );
-    ATH_CHECK( m_isoCloseByTool.retrieve() );
-  } else  ATH_CHECK( m_isoCloseByTool.retrieve() );
+//     ATH_CHECK( m_isoCloseByTool.setProperty("OutputLevel", this->msg().level()) );
+//     ATH_CHECK( m_isoCloseByTool.retrieve() );
+//   } else  ATH_CHECK( m_isoCloseByTool.retrieve() );
   
 
 // /////////////////////////////////////////////////////////////////////////////////////////

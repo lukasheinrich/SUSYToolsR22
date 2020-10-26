@@ -112,17 +112,18 @@ StatusCode SUSYToolsAlg::initialize() {
     ATH_CHECK(m_SUSYTools.setProperty("PRWConfigFiles", m_PRWConfigs) );
   }
   //
+  ATH_CHECK(m_SUSYTools.setProperty("ConfigFile", m_configFile) );
   m_SUSYTools.setTypeAndName("ST::SUSYObjDef_xAOD/SUSYTools");
   ATH_CHECK(m_SUSYTools.retrieve());
   ATH_MSG_INFO("Retrieved tool: " << m_SUSYTools->name() );
 
   // Need truth matching for tau CP tools
-  if( !m_SUSYTools->isData() ){
-    m_tauTruthTool.setTypeAndName("TauAnalysisTools::TauTruthMatchingTool/TauTruthMatchingTool");
-    ATH_CHECK( m_tauTruthTool.setProperty("WriteTruthTaus", true) );
-    ATH_CHECK( m_tauTruthTool.retrieve() );
-    ATH_MSG_INFO("Retrieved tool: " << m_tauTruthTool->name() );
-  }
+  // if( !m_SUSYTools->isData() ){
+  //   m_tauTruthTool.setTypeAndName("TauAnalysisTools::TauTruthMatchingTool/TauTruthMatchingTool");
+  //   ATH_CHECK( m_tauTruthTool.setProperty("WriteTruthTaus", true) );
+  //   ATH_CHECK( m_tauTruthTool.retrieve() );
+  //   ATH_MSG_INFO("Retrieved tool: " << m_tauTruthTool->name() );
+  // }
 
   sysInfoList.clear();
   // this is the nominal set
@@ -445,6 +446,7 @@ StatusCode SUSYToolsAlg::execute() {
 
   // call PRW tool to apply all relevant decorations
   ATH_CHECK( m_SUSYTools->ApplyPRWTool());
+  return StatusCode::SUCCESS;
 
   const xAOD::EventInfo* evtInfo(0);
   ATH_CHECK( evtStore()->retrieve(evtInfo, "EventInfo") );
@@ -486,11 +488,11 @@ StatusCode SUSYToolsAlg::execute() {
 
   // SZ - check if truth jets are there; if not, fail miserably since they're actually needed...
   // this hopefully will be automatically solved once new R21 test samples will become available
-  if( !evtStore()->contains<xAOD::JetContainer>( "AntiKt4TruthJets" ) && m_CheckTruthJets && isSim ) {
-    ATH_MSG_ERROR( "Failed to retrieve the AntiKt4TruthJets container. Likely this test is running over an R21 xAOD." );
-    ATH_MSG_ERROR( "Exiting miserably, since it's needed e.g. by the JetJvtEfficiency tool." );
-    return StatusCode::FAILURE;
-  }
+  // if( !evtStore()->contains<xAOD::JetContainer>( "AntiKt4TruthJets" ) && m_CheckTruthJets && isSim ) {
+  //   ATH_MSG_ERROR( "Failed to retrieve the AntiKt4TruthJets container. Likely this test is running over an R21 xAOD." );
+  //   ATH_MSG_ERROR( "Exiting miserably, since it's needed e.g. by the JetJvtEfficiency tool." );
+  //   return StatusCode::FAILURE;
+  // }
 
   // First, create the nominal containers
   // Only create them freshly if affected by systematics
